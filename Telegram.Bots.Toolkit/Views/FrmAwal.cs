@@ -80,7 +80,8 @@ namespace Telegram.Bots.Toolkit.Views
             Pending pending = new Pending()
             {
                 Token = TbxToken.Text.Trim(),
-                Uri = TbxUrl.Text.Trim()
+                Uri = TbxUrl.Text.Trim(),
+                UriDefault = TbxUriDefault.Text.Trim()
             };
 
             if (!string.IsNullOrEmpty(pending.Token) &&
@@ -105,15 +106,20 @@ namespace Telegram.Bots.Toolkit.Views
 
                     LblResult.Invoke(new MethodInvoker(delegate
                     {
-                        LblResult.Text = "Sisa : " + count;
+                        LblResult.Text = "Sisa pending : " + count;
                     }));
                 }
-
+                if (!string.IsNullOrEmpty(pending.UriDefault) && setUrlDef.Checked == true)
+                {
+                    pending.SetWebhookDefault();
+                }
+                else { }
                 BwChecker.RunWorkerAsync();
+                MessageBox.Show("Selesai membersihkan!");
             }
             else
             {
-                MessageBox.Show("Token & url dibutuhkan");
+                MessageBox.Show("Token & URI Clear Hook dibutuhkan!");
             }
         }
 
@@ -134,23 +140,24 @@ namespace Telegram.Bots.Toolkit.Views
                 var data = pending.GetWebhookInfo();
                 LblResult.Invoke(new MethodInvoker(delegate
                 {
-                    LblResult.Text = "URI Webhook \t : " + data.Url +
-                                     "\nPending Update \t : " + data.PendingUpdateCount +
-                                     "\nMax Connection \t : " + data.MaxConnections +
-                                     "\nLast Error Date \t : " + data.LastErrorDate +
-                                     "\nLast Error Message \t : " + data.LastErrorMessage;
+                    LblResult.Text = "URI Webhook         : " + data.Url +
+                                     "\nPending Update     : " + data.PendingUpdateCount +
+                                     "\nMax Connection     : " + data.MaxConnections +
+                                     "\nLast Error Date       : " + data.LastErrorDate +
+                                     "\nLast Error Message : " + data.LastErrorMessage;
                 }));
-                if (data.PendingUpdateCount > 20)
+                if (data.PendingUpdateCount > 5)
                 {
                     LblResult.Invoke(new MethodInvoker(delegate
                     {
                         LblResult.Text += "\nLebih dari 20";
+                        LblResult.Text += "\nLebih dari 5";
                     }));
                 }
             }
             else
             {
-                MessageBox.Show("Token dibutuhkan");
+                MessageBox.Show("Token dibutuhkan!");
             }
         }
 
@@ -171,6 +178,11 @@ namespace Telegram.Bots.Toolkit.Views
             tsLStatus.Text = "Siaga..";
             BtnBersihkan.Text = "Mulai Bersihkan";
             MessageBox.Show("Pragat!", Application.ProductName);
+        }
+
+        private void setWHD(object sender, EventArgs e)
+        {
+            TbxUriDefault.Enabled = setUrlDef.Checked;
         }
     }
 }

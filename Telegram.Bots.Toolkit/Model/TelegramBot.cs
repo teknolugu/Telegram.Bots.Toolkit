@@ -8,6 +8,8 @@
 
         public string Uri { get; set; }
 
+        public string UriDefault { get; set; }
+
         public int PendingCount { get; set; }
     }
 }

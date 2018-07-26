@@ -38,20 +38,22 @@
             this.LblResult = new System.Windows.Forms.Label();
             this.BgCleaner = new System.ComponentModel.BackgroundWorker();
             this.BwChecker = new System.ComponentModel.BackgroundWorker();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.setUrlDef = new System.Windows.Forms.CheckBox();
             this.TimerChecker = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsProgBar = new System.Windows.Forms.ToolStripProgressBar();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tsLStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bantuanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.pengaturanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.periksaStatusOtomatisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bantuanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.TbxUriDefault = new System.Windows.Forms.TextBox();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -121,7 +123,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.LblResult.Location = new System.Drawing.Point(6, 17);
             this.LblResult.Name = "LblResult";
-            this.LblResult.Size = new System.Drawing.Size(663, 153);
+            this.LblResult.Size = new System.Drawing.Size(663, 138);
             this.LblResult.TabIndex = 6;
             // 
             // BgCleaner
@@ -138,15 +140,15 @@
             this.BwChecker.WorkerSupportsCancellation = true;
             this.BwChecker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BwChecker_DoWork);
             // 
-            // checkBox1
+            // setUrlDef
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(28, 113);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(87, 21);
-            this.checkBox1.TabIndex = 8;
-            this.checkBox1.Text = "checkBox1";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.setUrlDef.AutoSize = true;
+            this.setUrlDef.Location = new System.Drawing.Point(28, 113);
+            this.setUrlDef.Name = "setUrlDef";
+            this.setUrlDef.Size = new System.Drawing.Size(87, 21);
+            this.setUrlDef.TabIndex = 8;
+            this.setUrlDef.Text = "checkBox1";
+            this.setUrlDef.UseVisualStyleBackColor = true;
             // 
             // TimerChecker
             // 
@@ -177,21 +179,21 @@
             this.tsProgBar.Name = "tsProgBar";
             this.tsProgBar.Size = new System.Drawing.Size(200, 20);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.LblResult);
-            this.groupBox1.Location = new System.Drawing.Point(12, 171);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(675, 173);
-            this.groupBox1.TabIndex = 10;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Hasil";
-            // 
             // tsLStatus
             // 
             this.tsLStatus.Name = "tsLStatus";
             this.tsLStatus.Size = new System.Drawing.Size(41, 21);
             this.tsLStatus.Text = "Siaga..";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.LblResult);
+            this.groupBox1.Location = new System.Drawing.Point(12, 186);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(675, 158);
+            this.groupBox1.TabIndex = 10;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Hasil";
             // 
             // menuStrip1
             // 
@@ -218,25 +220,6 @@
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
             // 
-            // bantuanToolStripMenuItem
-            // 
-            this.bantuanToolStripMenuItem.Name = "bantuanToolStripMenuItem";
-            this.bantuanToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
-            this.bantuanToolStripMenuItem.Text = "Bantuan";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.BtnCek);
-            this.groupBox2.Controls.Add(this.BtnBersihkan);
-            this.groupBox2.Controls.Add(this.checkBox1);
-            this.groupBox2.Location = new System.Drawing.Point(503, 27);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(184, 147);
-            this.groupBox2.TabIndex = 12;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Tindakan";
-            // 
             // pengaturanToolStripMenuItem
             // 
             this.pengaturanToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -252,11 +235,49 @@
             this.periksaStatusOtomatisToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
             this.periksaStatusOtomatisToolStripMenuItem.Text = "Periksa Webhook otomatis";
             // 
+            // bantuanToolStripMenuItem
+            // 
+            this.bantuanToolStripMenuItem.Name = "bantuanToolStripMenuItem";
+            this.bantuanToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
+            this.bantuanToolStripMenuItem.Text = "Bantuan";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.BtnCek);
+            this.groupBox2.Controls.Add(this.BtnBersihkan);
+            this.groupBox2.Controls.Add(this.setUrlDef);
+            this.groupBox2.Location = new System.Drawing.Point(503, 27);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(184, 147);
+            this.groupBox2.TabIndex = 12;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Tindakan";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(7, 133);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(108, 17);
+            this.label3.TabIndex = 14;
+            this.label3.Text = "URI Default Hook";
+            // 
+            // TbxUriDefault
+            // 
+            this.TbxUriDefault.Location = new System.Drawing.Point(12, 154);
+            this.TbxUriDefault.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.TbxUriDefault.Name = "TbxUriDefault";
+            this.TbxUriDefault.Size = new System.Drawing.Size(444, 25);
+            this.TbxUriDefault.TabIndex = 13;
+            // 
             // FrmAwal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(696, 386);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.TbxUriDefault);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.statusStrip1);
@@ -293,7 +314,7 @@
         private System.Windows.Forms.Label LblResult;
         private System.ComponentModel.BackgroundWorker BgCleaner;
         private System.ComponentModel.BackgroundWorker BwChecker;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox setUrlDef;
         private System.Windows.Forms.Timer TimerChecker;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
@@ -307,6 +328,8 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ToolStripMenuItem pengaturanToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem periksaStatusOtomatisToolStripMenuItem;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox TbxUriDefault;
     }
 }
 
