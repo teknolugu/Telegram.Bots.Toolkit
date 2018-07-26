@@ -29,6 +29,13 @@ namespace Telegram.Bots.Toolkit.Helpers
             var data = BotClient.SetWebhookAsync(Uri);
         }
 
+        public void SetWebhookDefault()
+        {
+            var BotClient = new TelegramBotClient(Token);
+
+            var data = BotClient.SetWebhookAsync(UriDefault);
+        }
+
         public void GetUpdates()
         {
             var BotClient = new TelegramBotClient(Token);
