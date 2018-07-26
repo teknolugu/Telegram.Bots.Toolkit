@@ -136,7 +136,10 @@ namespace Telegram.Bots.Toolkit.Views
 
         private void TimerChecker_Tick(object sender, EventArgs e)
         {
-            //BwChecker.RunWorkerAsync();
+            if (!BwChecker.IsBusy)
+            {
+                BwChecker.RunWorkerAsync();
+            }
         }
     }
 }
