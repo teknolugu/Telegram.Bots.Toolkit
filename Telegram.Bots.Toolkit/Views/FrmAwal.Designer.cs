@@ -50,7 +50,7 @@
             this.BtnCek.Name = "BtnCek";
             this.BtnCek.Size = new System.Drawing.Size(163, 31);
             this.BtnCek.TabIndex = 0;
-            this.BtnCek.Text = "Cek Token";
+            this.BtnCek.Text = "Cek WebHook";
             this.BtnCek.UseVisualStyleBackColor = true;
             this.BtnCek.Click += new System.EventHandler(this.BtnCek_Click);
             // 
@@ -72,7 +72,6 @@
             this.TbxToken.Name = "TbxToken";
             this.TbxToken.Size = new System.Drawing.Size(445, 25);
             this.TbxToken.TabIndex = 2;
-            this.TbxToken.Text = "483238348:AAG9MXBs-drSwOszpXcLGlTAmF8oTbx22Nw";
             // 
             // TbxUrl
             // 
@@ -81,7 +80,6 @@
             this.TbxUrl.Name = "TbxUrl";
             this.TbxUrl.Size = new System.Drawing.Size(444, 25);
             this.TbxUrl.TabIndex = 3;
-            this.TbxUrl.Text = "https://app.winten.tk/telebhoth/ori/hook.php";
             // 
             // label1
             // 

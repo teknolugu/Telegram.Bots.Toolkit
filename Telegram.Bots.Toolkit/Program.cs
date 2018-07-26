@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
-using TelegramBots.Toolkit.Views;
+using Telegram.Bots.Toolkit.Views;
 
-namespace TelegramBots.Toolkit
+namespace Telegram.Bots.Toolkit
 {
     internal static class Program
     {
