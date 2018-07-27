@@ -61,6 +61,7 @@
             this.BtnSimpanBot = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.BtnHapusBot = new System.Windows.Forms.Button();
+            this.segarkanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -228,6 +229,8 @@
             // 
             // editToolStripMenuItem
             // 
+            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.segarkanToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
@@ -353,6 +356,13 @@
             this.BtnHapusBot.UseVisualStyleBackColor = true;
             this.BtnHapusBot.Click += new System.EventHandler(this.BtnHapusBot_Click);
             // 
+            // segarkanToolStripMenuItem
+            // 
+            this.segarkanToolStripMenuItem.Name = "segarkanToolStripMenuItem";
+            this.segarkanToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.segarkanToolStripMenuItem.Text = "Segarkan";
+            this.segarkanToolStripMenuItem.Click += new System.EventHandler(this.segarkanToolStripMenuItem_Click);
+            // 
             // FrmAwal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -417,6 +427,7 @@
         private System.Windows.Forms.Button BtnSimpanBot;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button BtnHapusBot;
+        private System.Windows.Forms.ToolStripMenuItem segarkanToolStripMenuItem;
     }
 }
 

@@ -27,10 +27,8 @@ namespace Telegram.Bots.Toolkit.Views
 
         private void LoadBots()
         {
-            int index = CmbBots.SelectedIndex;
             //CmbBots.Items.Clear();
             CmbBots.DataSource = SBots.GetSemuaBot();
-            CmbBots.SelectedIndex = index;
         }
 
         #endregion Fungsi2
@@ -179,7 +177,7 @@ namespace Telegram.Bots.Toolkit.Views
                 tsLStatus.Text = "Webhook berhasil di set";
                 BwChecker.RunWorkerAsync();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageBox.Show("Silakan tunggu hingga proses check selesai", Application.ProductName,
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -231,6 +229,11 @@ namespace Telegram.Bots.Toolkit.Views
             {
                 tsLStatus.Text = "Pilih Bot yg mau di Hapus..";
             }
+        }
+
+        private void segarkanToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoadBot();
         }
 
         #endregion Tindakan
