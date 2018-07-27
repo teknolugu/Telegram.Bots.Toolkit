@@ -11,6 +11,7 @@ namespace Telegram.Bots.Toolkit.Views
         public FrmAwal()
         {
             InitializeComponent();
+            LoadSettings();
         }
 
         #region Fungsi2
@@ -20,8 +21,8 @@ namespace Telegram.Bots.Toolkit.Views
             if (!string.IsNullOrEmpty(CmbBots.Text))
             {
                 TbxToken.Text = SBots.GetBots(CmbBots.Text.Trim())[0].Token;
-                TbxUri.Text = SBots.GetBots(CmbBots.Text.Trim())[0].Uri;
-                TbxUriDefault.Text = SBots.GetBots(CmbBots.Text.Trim())[0].UriDefault;
+                TbxUri.Text = SBots.GetBots(CmbBots.Text.Trim())[0].UriClean;
+                TbxUriDefault.Text = SBots.GetBots(CmbBots.Text.Trim())[0].UriCurrent;
             }
         }
 
@@ -29,6 +30,13 @@ namespace Telegram.Bots.Toolkit.Views
         {
             //CmbBots.Items.Clear();
             CmbBots.DataSource = SBots.GetSemuaBot();
+        }
+
+        private void LoadSettings()
+        {
+            periksaStatusOtomatisToolStripMenuItem.Checked = Convert.ToBoolean(Pengaturan.Baca("AutoCekWebhook"));
+            SetURIHookSetBersihkanToolStripMenuItem.Checked = Convert.ToBoolean(Pengaturan.Baca("SetURIHookSetBersih"));
+            tutupKeTrayToolStripMenuItem.Checked = Convert.ToBoolean(Pengaturan.Baca("TutupKeTray"));
         }
 
         #endregion Fungsi2
@@ -40,12 +48,12 @@ namespace Telegram.Bots.Toolkit.Views
             Pending pending = new Pending()
             {
                 Token = TbxToken.Text.Trim(),
-                Uri = TbxUri.Text.Trim(),
-                UriDefault = TbxUriDefault.Text.Trim()
+                UriClean = TbxUri.Text.Trim(),
+                UriCurrent = TbxUriDefault.Text.Trim()
             };
 
             if (!string.IsNullOrEmpty(pending.Token) &&
-                !string.IsNullOrEmpty(pending.Uri))
+                !string.IsNullOrEmpty(pending.UriClean))
             {
                 int count = pending.GetWebhookInfo().PendingUpdateCount;
                 tsProgBar.GetCurrentParent().Invoke(new MethodInvoker(delegate
@@ -70,8 +78,8 @@ namespace Telegram.Bots.Toolkit.Views
                     }));
                 }
 
-                if (!string.IsNullOrEmpty(pending.UriDefault) &&
-                    tetapkanURIHookSetelahBersihkanToolStripMenuItem.Checked)
+                if (!string.IsNullOrEmpty(pending.UriCurrent) &&
+                    SetURIHookSetBersihkanToolStripMenuItem.Checked)
                 {
                     pending.SetWebhookDefault();
                 }
@@ -101,8 +109,8 @@ namespace Telegram.Bots.Toolkit.Views
             Pending pending = new Pending()
             {
                 Token = TbxToken.Text.Trim(),
-                Uri = TbxUri.Text.Trim(),
-                UriDefault = TbxUriDefault.Text.Trim()
+                UriClean = TbxUri.Text.Trim(),
+                UriCurrent = TbxUriDefault.Text.Trim()
             };
 
             if (!string.IsNullOrEmpty(pending.Token))
@@ -167,8 +175,8 @@ namespace Telegram.Bots.Toolkit.Views
             Pending pending = new Pending()
             {
                 Token = TbxToken.Text.Trim(),
-                Uri = TbxUri.Text.Trim(),
-                UriDefault = TbxUriDefault.Text.Trim()
+                UriClean = TbxUri.Text.Trim(),
+                UriCurrent = TbxUriDefault.Text.Trim()
             };
 
             try
@@ -207,8 +215,8 @@ namespace Telegram.Bots.Toolkit.Views
                 new TelegramBot
                 {
                     Token = TbxToken.Text.Trim(),
-                    Uri = TbxUri.Text.Trim(),
-                    UriDefault = TbxUriDefault.Text.Trim()
+                    UriClean = TbxUri.Text.Trim(),
+                    UriCurrent = TbxUriDefault.Text.Trim()
                 }
             };
 
@@ -231,11 +239,30 @@ namespace Telegram.Bots.Toolkit.Views
             }
         }
 
+        #endregion Tindakan
+
+        #region Menus
+
         private void segarkanToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LoadBot();
         }
 
-        #endregion Tindakan
+        private void periksaStatusOtomatisToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Pengaturan.Tulis("AutoCekWebhook", periksaStatusOtomatisToolStripMenuItem.Checked.ToString());
+        }
+
+        private void SetURIHookSetBersihkanToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Pengaturan.Tulis("SetURIHookSetBersih", SetURIHookSetBersihkanToolStripMenuItem.Checked.ToString());
+        }
+
+        private void tutupKeTrayToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Pengaturan.Tulis("TutupKeTray", tutupKeTrayToolStripMenuItem.Checked.ToString());
+        }
+
+        #endregion Menus
     }
 }

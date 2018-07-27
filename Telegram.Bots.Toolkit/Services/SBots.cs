@@ -20,9 +20,9 @@ namespace Telegram.Bots.Toolkit.Services
 
         public static void TambahBot(string sect, List<TelegramBot> data)
         {
-            HIniParser.Simpan(sect, "token", data[0].Token);
-            HIniParser.Simpan(sect, "uri", data[0].Uri);
-            HIniParser.Simpan(sect, "uriDefault", data[0].UriDefault);
+            HIniParser.Simpan(sect, "Token", data[0].Token);
+            HIniParser.Simpan(sect, "UriClean", data[0].UriClean);
+            HIniParser.Simpan(sect, "UriCurrent", data[0].UriCurrent);
         }
 
         public static void HapusBot(string sect)
@@ -36,9 +36,9 @@ namespace Telegram.Bots.Toolkit.Services
             {
                 new TelegramBot
                 {
-                    Token = HIniParser.Baca(sect,"token"),
-                    Uri = HIniParser.Baca(sect,"uri"),
-                    UriDefault = HIniParser.Baca(sect,"uriDefault")
+                    Token = HIniParser.Baca(sect,"Token"),
+                    UriClean = HIniParser.Baca(sect,"UriClean"),
+                    UriCurrent = HIniParser.Baca(sect,"UriCurrent")
                 }
             };
 

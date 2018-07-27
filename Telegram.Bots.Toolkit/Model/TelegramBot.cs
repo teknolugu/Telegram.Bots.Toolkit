@@ -4,12 +4,8 @@
     {
         public string Token { get; set; }
 
-        public string Method { get; set; }
+        public string UriClean { get; set; }
 
-        public string Uri { get; set; }
-
-        public string UriDefault { get; set; }
-
-        public int PendingCount { get; set; }
+        public string UriCurrent { get; set; }
     }
 }
