@@ -1,0 +1,10 @@
+version: 1.0.1.{build}.{branch}
+image: Visual Studio 2017
+platform: Any CPU
+before_build:
+- cmd: nuget restore
+build:
+  verbosity: minimal
+artifacts:
+  # pushing a single file
+  - path: Telegram.Bots.Toolkit.{version}.zip
