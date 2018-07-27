@@ -12,6 +12,7 @@ namespace Telegram.Bots.Toolkit.Views
         {
             InitializeComponent();
             LoadSettings();
+            MainNotif.Visible = true;
         }
 
         #region Fungsi2
@@ -282,5 +283,26 @@ namespace Telegram.Bots.Toolkit.Views
         }
 
         #endregion Menus
+
+        private void FrmAwal_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!tutupKeTrayToolStripMenuItem.Checked)
+            {
+                var dlgRes = MessageBox.Show("Apakah kamu yakin mau menutup?", Application.ProductName,
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+                if (dlgRes != DialogResult.Yes)
+                { e.Cancel = true; }
+            }
+            else
+            {
+                e.Cancel = true;
+                Hide();
+            }
+        }
+
+        private void MainNotif_Click(object sender, EventArgs e)
+        {
+            if (Visible) { Hide(); } else { Show(); }
+        }
     }
 }

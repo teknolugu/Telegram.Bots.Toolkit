@@ -375,6 +375,7 @@
             this.MainNotif.Icon = ((System.Drawing.Icon)(resources.GetObject("MainNotif.Icon")));
             this.MainNotif.Text = "Telegram.Bots.Toolkit.Bots";
             this.MainNotif.Visible = true;
+            this.MainNotif.Click += new System.EventHandler(this.MainNotif_Click);
             // 
             // FrmAwal
             // 
@@ -394,6 +395,7 @@
             this.Name = "FrmAwal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TelegramBots Toolkit";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmAwal_FormClosing);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
