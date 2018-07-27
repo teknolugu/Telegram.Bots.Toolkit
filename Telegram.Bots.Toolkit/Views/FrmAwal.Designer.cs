@@ -63,6 +63,7 @@
             this.CmbBots = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.MainNotif = new System.Windows.Forms.NotifyIcon(this.components);
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -380,6 +381,13 @@
             this.groupBox3.TabIndex = 18;
             this.groupBox3.TabStop = false;
             // 
+            // MainNotif
+            // 
+            this.MainNotif.BalloonTipTitle = "Telegram.Bots.Toolkit.Bots";
+            this.MainNotif.Icon = ((System.Drawing.Icon)(resources.GetObject("MainNotif.Icon")));
+            this.MainNotif.Text = "Telegram.Bots.Toolkit.Bots";
+            this.MainNotif.Visible = true;
+            // 
             // FrmAwal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -447,6 +455,7 @@
         private System.Windows.Forms.Button BtnHapusBot;
         private System.Windows.Forms.ToolStripMenuItem segarkanToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tutupKeTrayToolStripMenuItem;
+        private System.Windows.Forms.NotifyIcon MainNotif;
     }
 }
 

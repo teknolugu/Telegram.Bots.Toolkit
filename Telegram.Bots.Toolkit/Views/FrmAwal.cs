@@ -39,6 +39,13 @@ namespace Telegram.Bots.Toolkit.Views
             tutupKeTrayToolStripMenuItem.Checked = Convert.ToBoolean(Pengaturan.Baca("TutupKeTray"));
         }
 
+        private void PushNotif(string notif)
+        {
+            MainNotif.BalloonTipText = notif;
+            MainNotif.BalloonTipIcon = ToolTipIcon.Info;
+            MainNotif.ShowBalloonTip(3000);
+        }
+
         #endregion Fungsi2
 
         #region Workers
@@ -83,7 +90,11 @@ namespace Telegram.Bots.Toolkit.Views
                 {
                     pending.SetWebhookDefault();
                 }
-                BwChecker.RunWorkerAsync();
+
+                if (!BwChecker.IsBusy)
+                {
+                    BwChecker.RunWorkerAsync();
+                }
             }
             else
             {
@@ -100,8 +111,15 @@ namespace Telegram.Bots.Toolkit.Views
         {
             tsLStatus.Text = "Siaga..";
             BtnBersihkan.Text = "Mulai Bersihkan";
-            MessageBox.Show("Pragat!", Application.ProductName,
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (ContainsFocus)
+            {
+                MessageBox.Show("Pragat!", Application.ProductName,
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                PushNotif("Pragat!");
+            }
         }
 
         private void BwChecker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
