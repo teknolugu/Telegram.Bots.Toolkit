@@ -48,7 +48,8 @@ namespace Telegram.Bots.Toolkit.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Silakan tunggu hingga proses check selesai", Application.ProductName);
+                MessageBox.Show("Silakan tunggu hingga proses check selesai", Application.ProductName,
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -102,18 +103,18 @@ namespace Telegram.Bots.Toolkit.Views
                         LblResult.Text = "Sisa pending : " + count;
                     }));
                 }
+
                 if (!string.IsNullOrEmpty(pending.UriDefault) &&
-                    tetapkanURIHookSetelahBersihkanToolStripMenuItem.Checked == true)
+                    tetapkanURIHookSetelahBersihkanToolStripMenuItem.Checked)
                 {
                     pending.SetWebhookDefault();
                 }
-                else { }
                 BwChecker.RunWorkerAsync();
-                MessageBox.Show("Selesai membersihkan!");
             }
             else
             {
-                MessageBox.Show("Token & URI Clear Hook dibutuhkan!");
+                MessageBox.Show("Token & URI Clear Hook dibutuhkan!", Application.ProductName,
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -152,7 +153,8 @@ namespace Telegram.Bots.Toolkit.Views
             }
             else
             {
-                MessageBox.Show("Token dibutuhkan!");
+                MessageBox.Show("Token dibutuhkan!", Application.ProductName,
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -172,12 +174,8 @@ namespace Telegram.Bots.Toolkit.Views
         {
             tsLStatus.Text = "Siaga..";
             BtnBersihkan.Text = "Mulai Bersihkan";
-            MessageBox.Show("Pragat!", Application.ProductName);
-        }
-
-        private void setWHD(object sender, EventArgs e)
-        {
-            TbxUriDefault.Enabled = setUrlDef.Checked;
+            MessageBox.Show("Pragat!", Application.ProductName,
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void CmbBots_SelectedIndexChanged(object sender, EventArgs e)

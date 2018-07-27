@@ -245,7 +245,7 @@
             // 
             this.periksaStatusOtomatisToolStripMenuItem.CheckOnClick = true;
             this.periksaStatusOtomatisToolStripMenuItem.Name = "periksaStatusOtomatisToolStripMenuItem";
-            this.periksaStatusOtomatisToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
+            this.periksaStatusOtomatisToolStripMenuItem.Size = new System.Drawing.Size(278, 22);
             this.periksaStatusOtomatisToolStripMenuItem.Text = "Periksa Webhook otomatis";
             // 
             // bantuanToolStripMenuItem
@@ -368,6 +368,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "FrmAwal";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TelegramBots Toolkit";
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
