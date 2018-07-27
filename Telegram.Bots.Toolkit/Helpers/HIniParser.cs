@@ -18,7 +18,11 @@ namespace Telegram.Bots.Toolkit.Helpers
 
             if (!File.Exists(IniFile))
             {
-                File.CreateText(IniFile);
+                //File.CreateText(IniFile);
+                using (var fileWriter = new StreamWriter(IniFile, true))
+                {
+                    fileWriter.Write("[Settings]\n");
+                }
             }
         }
 
