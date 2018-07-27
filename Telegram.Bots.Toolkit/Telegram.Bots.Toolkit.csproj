@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\HIniParser.cs" />
+    <Compile Include="Services\Pengaturan.cs" />
     <Compile Include="Services\SBots.cs" />
     <Compile Include="Services\Pending.cs" />
     <Compile Include="Model\TelegramBot.cs" />
