@@ -4,9 +4,8 @@ platform: Any CPU
 before_build:
 - cmd: nuget restore
 after_build:
-- cmd: 7z a {name}.{version}.zip %APPVEYOR_BUILD_FOLDER%\Telegram.Bots.Toolkit\bin\Debug\*
+- cmd: 7z a Telegram.Bots.Toolkit.{build}.{branch}.APPVEYOR_REPO_COMMIT.zip %APPVEYOR_BUILD_FOLDER%\Telegram.Bots.Toolkit\bin\Debug\*
 build:
   verbosity: minimal
 artifacts:
-  # pushing a single file
-  - path: Telegram.Bots.Toolkit.{version}.zip
+  - path: Telegram.Bots.Toolkit.{build}.{branch}.APPVEYOR_REPO_COMMIT.zip
