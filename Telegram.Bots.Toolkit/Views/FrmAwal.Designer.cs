@@ -39,7 +39,6 @@
             this.LblResult = new System.Windows.Forms.Label();
             this.BgCleaner = new System.ComponentModel.BackgroundWorker();
             this.BwChecker = new System.ComponentModel.BackgroundWorker();
-            this.setUrlDef = new System.Windows.Forms.CheckBox();
             this.TimerChecker = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -154,16 +153,6 @@
             this.BwChecker.WorkerReportsProgress = true;
             this.BwChecker.WorkerSupportsCancellation = true;
             this.BwChecker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BwChecker_DoWork);
-            // 
-            // setUrlDef
-            // 
-            this.setUrlDef.AutoSize = true;
-            this.setUrlDef.Location = new System.Drawing.Point(44, 150);
-            this.setUrlDef.Name = "setUrlDef";
-            this.setUrlDef.Size = new System.Drawing.Size(87, 21);
-            this.setUrlDef.TabIndex = 8;
-            this.setUrlDef.Text = "checkBox1";
-            this.setUrlDef.UseVisualStyleBackColor = true;
             // 
             // TimerChecker
             // 
@@ -294,7 +283,6 @@
             this.groupBox2.Controls.Add(this.BtnSimpanBot);
             this.groupBox2.Controls.Add(this.BtnCek);
             this.groupBox2.Controls.Add(this.BtnBersihkan);
-            this.groupBox2.Controls.Add(this.setUrlDef);
             this.groupBox2.Location = new System.Drawing.Point(496, 27);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(179, 183);
@@ -412,7 +400,6 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
@@ -431,7 +418,6 @@
         private System.Windows.Forms.Label LblResult;
         private System.ComponentModel.BackgroundWorker BgCleaner;
         private System.ComponentModel.BackgroundWorker BwChecker;
-        private System.Windows.Forms.CheckBox setUrlDef;
         private System.Windows.Forms.Timer TimerChecker;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
