@@ -8,7 +8,14 @@ namespace Telegram.Bots.Toolkit.Services
     {
         public static List<string> GetSemuaBot()
         {
-            return HIniParser.SemuaSections();
+            string[] bukans = new[] { "Settings" };
+            var bots = HIniParser.SemuaSections();
+            foreach (var bukan in bukans)
+            {
+                bots.Remove(bukan);
+            }
+
+            return bots;
         }
 
         public static void TambahBot(string sect, List<TelegramBot> data)
