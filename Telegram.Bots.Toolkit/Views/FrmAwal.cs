@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
-using Telegram.Bots.Toolkit.Helpers;
+using Telegram.Bots.Toolkit.Model;
+using Telegram.Bots.Toolkit.Services;
 
 namespace Telegram.Bots.Toolkit.Views
 {
@@ -11,45 +13,36 @@ namespace Telegram.Bots.Toolkit.Views
             InitializeComponent();
         }
 
-        /*
-        private void CekHook()
+        private void LoadBots()
         {
-            Pending pending = new Pending()
-            {
-                Token = TbxToken.Text.Trim(),
-                Uri = TbxUrl.Text.Trim()
-            };
+            int index = CmbBots.SelectedIndex;
+            //CmbBots.Items.Clear();
+            CmbBots.DataSource = SBots.GetSemuaBot();
+            CmbBots.SelectedIndex = index;
+        }
 
-            if (!string.IsNullOrEmpty(pending.Token))
+        private void LoadBot()
+        {
+            if (!string.IsNullOrEmpty(CmbBots.Text))
             {
-                var data = pending.GetWebhookInfo();
-                LblResult.Invoke(new MethodInvoker(delegate
-                {
-                    LblResult.Text = "URI Webhook \t : " + data.Url +
-                                     "\nPending Update \t : " + data.PendingUpdateCount +
-                                     "\nMax Connection \t : " + data.MaxConnections +
-                                     "\nLast Error Date \t : " + data.LastErrorDate +
-                                     "\nLast Error Message \t : " + data.LastErrorMessage;
-                }));
-            }
-            else
-            {
-                MessageBox.Show("Token dibutuhkan");
+                TbxToken.Text = SBots.GetBots(CmbBots.Text.Trim())[0].Token;
+                TbxUri.Text = SBots.GetBots(CmbBots.Text.Trim())[0].Uri;
+                TbxUriDefault.Text = SBots.GetBots(CmbBots.Text.Trim())[0].UriDefault;
             }
         }
-        */
 
         private void BtnCek_Click(object sender, EventArgs e)
         {
             Pending pending = new Pending()
             {
                 Token = TbxToken.Text.Trim(),
-                Uri = TbxUrl.Text.Trim()
+                Uri = TbxUri.Text.Trim(),
+                UriDefault = TbxUriDefault.Text.Trim()
             };
 
             try
             {
-                pending.SetWebhook();
+                pending.SetWebhookDefault();
                 tsLStatus.Text = "Webhook berhasil di set";
                 BwChecker.RunWorkerAsync();
             }
@@ -80,7 +73,7 @@ namespace Telegram.Bots.Toolkit.Views
             Pending pending = new Pending()
             {
                 Token = TbxToken.Text.Trim(),
-                Uri = TbxUrl.Text.Trim(),
+                Uri = TbxUri.Text.Trim(),
                 UriDefault = TbxUriDefault.Text.Trim()
             };
 
@@ -109,7 +102,8 @@ namespace Telegram.Bots.Toolkit.Views
                         LblResult.Text = "Sisa pending : " + count;
                     }));
                 }
-                if (!string.IsNullOrEmpty(pending.UriDefault) && setUrlDef.Checked == true)
+                if (!string.IsNullOrEmpty(pending.UriDefault) &&
+                    tetapkanURIHookSetelahBersihkanToolStripMenuItem.Checked == true)
                 {
                     pending.SetWebhookDefault();
                 }
@@ -132,7 +126,8 @@ namespace Telegram.Bots.Toolkit.Views
             Pending pending = new Pending()
             {
                 Token = TbxToken.Text.Trim(),
-                Uri = TbxUrl.Text.Trim()
+                Uri = TbxUri.Text.Trim(),
+                UriDefault = TbxUriDefault.Text.Trim()
             };
 
             if (!string.IsNullOrEmpty(pending.Token))
@@ -183,6 +178,47 @@ namespace Telegram.Bots.Toolkit.Views
         private void setWHD(object sender, EventArgs e)
         {
             TbxUriDefault.Enabled = setUrlDef.Checked;
+        }
+
+        private void CmbBots_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadBot();
+        }
+
+        private void CmbBots_DropDown(object sender, EventArgs e)
+        {
+            LoadBots();
+        }
+
+        private void BtnSimpanBot_Click(object sender, EventArgs e)
+        {
+            var data = new List<TelegramBot>
+            {
+                new TelegramBot
+                {
+                    Token = TbxToken.Text.Trim(),
+                    Uri = TbxUri.Text.Trim(),
+                    UriDefault = TbxUriDefault.Text.Trim()
+                }
+            };
+
+            SBots.TambahBot(CmbBots.Text.Trim(), data);
+            LoadBots();
+            tsLStatus.Text = "Berhasil menambahkan Bot..";
+        }
+
+        private void BtnHapusBot_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(CmbBots.Text))
+            {
+                SBots.HapusBot(CmbBots.Text);
+                tsLStatus.Text = "Berhasil hapus Bot..";
+                LoadBots();
+            }
+            else
+            {
+                tsLStatus.Text = "Pilih Bot yg mau di Hapus..";
+            }
         }
     }
 }

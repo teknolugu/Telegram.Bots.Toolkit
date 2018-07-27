@@ -2,45 +2,45 @@
 using Telegram.Bot.Types;
 using Telegram.Bots.Toolkit.Model;
 
-namespace Telegram.Bots.Toolkit.Helpers
+namespace Telegram.Bots.Toolkit.Services
 {
     internal class Pending : TelegramBot
     {
         public WebhookInfo GetWebhookInfo()
         {
-            var BotClient = new TelegramBotClient(Token);
+            var botClient = new TelegramBotClient(Token);
 
-            var data = BotClient.GetWebhookInfoAsync();
+            var data = botClient.GetWebhookInfoAsync();
 
             return data.Result;
         }
 
         public void HapusWebhook()
         {
-            var BotClient = new TelegramBotClient(Token);
+            var botClient = new TelegramBotClient(Token);
 
-            var data = BotClient.DeleteWebhookAsync();
+            var data = botClient.DeleteWebhookAsync();
         }
 
         public void SetWebhook()
         {
-            var BotClient = new TelegramBotClient(Token);
+            var botClient = new TelegramBotClient(Token);
 
-            var data = BotClient.SetWebhookAsync(Uri);
+            var data = botClient.SetWebhookAsync(Uri);
         }
 
         public void SetWebhookDefault()
         {
-            var BotClient = new TelegramBotClient(Token);
+            var botClient = new TelegramBotClient(Token);
 
-            var data = BotClient.SetWebhookAsync(UriDefault);
+            var data = botClient.SetWebhookAsync(UriDefault);
         }
 
         public void GetUpdates()
         {
-            var BotClient = new TelegramBotClient(Token);
+            var botClient = new TelegramBotClient(Token);
 
-            var data = BotClient.GetUpdatesAsync();
+            var data = botClient.GetUpdatesAsync();
         }
     }
 }
