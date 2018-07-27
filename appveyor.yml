@@ -4,7 +4,7 @@ platform: Any CPU
 before_build:
 - cmd: nuget restore
 after_build:
-- cmd: 7z a Telegram.Bots.Toolkit.{version}.zip %APPVEYOR_BUILD_FOLDER%\bin\Debug\*
+- cmd: 7z a {name}.{version}.zip %APPVEYOR_BUILD_FOLDER%\Telegram.Bots.Toolkit\bin\Debug\*
 build:
   verbosity: minimal
 artifacts:
