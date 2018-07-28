@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using Telegram.Bots.Toolkit.Model;
 using Telegram.Bots.Toolkit.Services;
@@ -35,9 +36,14 @@ namespace Telegram.Bots.Toolkit.Views
 
         private void LoadSettings()
         {
+            int h = Convert.ToInt32(Pengaturan.Baca("WinHeight"));
+            int w = Convert.ToInt32(Pengaturan.Baca("WinWidth"));
+
             periksaStatusOtomatisToolStripMenuItem.Checked = Convert.ToBoolean(Pengaturan.Baca("AutoCekWebhook"));
             SetURIHookSetBersihkanToolStripMenuItem.Checked = Convert.ToBoolean(Pengaturan.Baca("SetURIHookSetBersih"));
             tutupKeTrayToolStripMenuItem.Checked = Convert.ToBoolean(Pengaturan.Baca("TutupKeTray"));
+            Location = new Point(Convert.ToInt16(Pengaturan.Baca("WinLocX")), Convert.ToInt16(Pengaturan.Baca("WinLocY")));
+            Size = new Size(w, h);
         }
 
         private void PushNotif(string notif)
@@ -303,6 +309,14 @@ namespace Telegram.Bots.Toolkit.Views
         private void MainNotif_Click(object sender, EventArgs e)
         {
             if (Visible) { Hide(); } else { Show(); }
+        }
+
+        private void FrmAwal_LocationChanged(object sender, EventArgs e)
+        {
+            Pengaturan.Tulis("WinLocX", Location.X.ToString());
+            Pengaturan.Tulis("WinLocY", Location.Y.ToString());
+            Pengaturan.Tulis("WinHeight", Height.ToString());
+            Pengaturan.Tulis("WinWidth", Width.ToString());
         }
     }
 }
