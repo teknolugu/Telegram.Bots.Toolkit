@@ -63,7 +63,7 @@
     <Compile Include="Helpers\HIniParser.cs" />
     <Compile Include="Services\Pengaturan.cs" />
     <Compile Include="Services\SBots.cs" />
-    <Compile Include="Services\Pending.cs" />
+    <Compile Include="Services\SWebhookInfo.cs" />
     <Compile Include="Model\TelegramBot.cs" />
     <Compile Include="Services\Me.cs" />
     <Compile Include="Views\FrmAwal.cs">

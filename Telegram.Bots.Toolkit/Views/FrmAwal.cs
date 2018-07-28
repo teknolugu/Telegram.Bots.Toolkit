@@ -9,6 +9,8 @@ namespace Telegram.Bots.Toolkit.Views
 {
     public partial class FrmAwal : Form
     {
+        private SWebhookInfo sWebhook = new SWebhookInfo();
+
         public FrmAwal()
         {
             InitializeComponent();
@@ -65,27 +67,24 @@ namespace Telegram.Bots.Toolkit.Views
 
         private void BgCleaner_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            Pending pending = new Pending()
-            {
-                Token = TbxToken.Text.Trim(),
-                UriClean = TbxUri.Text.Trim(),
-                UriCurrent = TbxUriDefault.Text.Trim()
-            };
+            sWebhook.Token = TbxToken.Text.Trim();
+            sWebhook.UriClean = TbxUri.Text.Trim();
+            sWebhook.UriCurrent = TbxUriDefault.Text.Trim();
 
-            if (!string.IsNullOrEmpty(pending.Token) &&
-                !string.IsNullOrEmpty(pending.UriClean))
+            if (!string.IsNullOrEmpty(sWebhook.Token) &&
+                !string.IsNullOrEmpty(sWebhook.UriClean))
             {
-                int count = pending.GetWebhookInfo().PendingUpdateCount;
+                int count = sWebhook.GetWebhookInfo().PendingUpdateCount;
                 tsProgBar.GetCurrentParent().Invoke(new MethodInvoker(delegate
                 {
                     tsProgBar.Maximum = count;
                 }));
                 for (int x = 0; x <= count; count--)
                 {
-                    pending.HapusWebhook();
-                    pending.GetUpdates();
-                    pending.SetWebhook();
-                    count = pending.GetWebhookInfo().PendingUpdateCount;
+                    sWebhook.HapusWebhook();
+                    sWebhook.GetUpdates();
+                    sWebhook.SetWebhook();
+                    count = sWebhook.GetWebhookInfo().PendingUpdateCount;
                     e.Result = count;
                     tsProgBar.GetCurrentParent().Invoke(new MethodInvoker(delegate
                     {
@@ -98,10 +97,10 @@ namespace Telegram.Bots.Toolkit.Views
                     }));
                 }
 
-                if (!string.IsNullOrEmpty(pending.UriCurrent) &&
+                if (!string.IsNullOrEmpty(sWebhook.UriCurrent) &&
                     SetURIHookSetBersihkanToolStripMenuItem.Checked)
                 {
-                    pending.SetWebhookDefault();
+                    sWebhook.SetWebhookDefault();
                 }
 
                 if (!BwChecker.IsBusy)
@@ -114,10 +113,6 @@ namespace Telegram.Bots.Toolkit.Views
                 MessageBox.Show("Token & URI Clear Hook dibutuhkan!", Application.ProductName,
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-        }
-
-        private void BgCleaner_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
-        {
         }
 
         private void BgCleaner_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
@@ -139,16 +134,13 @@ namespace Telegram.Bots.Toolkit.Views
 
         private void BwChecker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            Pending pending = new Pending()
-            {
-                Token = TbxToken.Text.Trim(),
-                UriClean = TbxUri.Text.Trim(),
-                UriCurrent = TbxUriDefault.Text.Trim()
-            };
+            sWebhook.Token = TbxToken.Text.Trim();
+            sWebhook.UriClean = TbxUri.Text.Trim();
+            sWebhook.UriCurrent = TbxUriDefault.Text.Trim();
 
-            if (!string.IsNullOrEmpty(pending.Token))
+            if (!string.IsNullOrEmpty(sWebhook.Token))
             {
-                var data = pending.GetWebhookInfo();
+                var data = sWebhook.GetWebhookInfo();
                 LblResult.Invoke(new MethodInvoker(delegate
                 {
                     LblResult.Text = "URI Webhook         : " + data.Url +
@@ -157,12 +149,12 @@ namespace Telegram.Bots.Toolkit.Views
                                      "\nLast Error Date       : " + data.LastErrorDate +
                                      "\nLast Error Message : " + data.LastErrorMessage;
                 }));
+
                 if (data.PendingUpdateCount > 5)
                 {
                     LblResult.Invoke(new MethodInvoker(delegate
                     {
-                        LblResult.Text += "\nLebih dari 20";
-                        LblResult.Text += "\nLebih dari 5";
+                        LblResult.Text += "\nLebih dari " + data.PendingUpdateCount;
                     }));
 
                     if (bersihkanPendingCountOtomatisToolStripMenuItem.Checked)
@@ -235,16 +227,13 @@ namespace Telegram.Bots.Toolkit.Views
 
         private void BtnCek_Click(object sender, EventArgs e)
         {
-            Pending pending = new Pending()
-            {
-                Token = TbxToken.Text.Trim(),
-                UriClean = TbxUri.Text.Trim(),
-                UriCurrent = TbxUriDefault.Text.Trim()
-            };
+            sWebhook.Token = TbxToken.Text.Trim();
+            sWebhook.UriClean = TbxUri.Text.Trim();
+            sWebhook.UriCurrent = TbxUriDefault.Text.Trim();
 
             try
             {
-                pending.SetWebhookDefault();
+                sWebhook.SetWebhookDefault();
                 tsLStatus.Text = "Webhook berhasil di set";
                 BwChecker.RunWorkerAsync();
             }
