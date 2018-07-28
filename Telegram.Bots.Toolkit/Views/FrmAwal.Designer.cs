@@ -51,6 +51,7 @@
             this.segarkanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pengaturanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.periksaStatusOtomatisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bersihkanPendingCountOtomatisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SetURIHookSetBersihkanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tutupKeTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bantuanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,7 +64,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.MainNotif = new System.Windows.Forms.NotifyIcon(this.components);
-            this.bersihkanPendingCountOtomatisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mulaiUlangToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.keluarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -217,6 +219,9 @@
             // 
             // fileToolStripMenuItem
             // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mulaiUlangToolStripMenuItem,
+            this.keluarToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -232,7 +237,7 @@
             // segarkanToolStripMenuItem
             // 
             this.segarkanToolStripMenuItem.Name = "segarkanToolStripMenuItem";
-            this.segarkanToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.segarkanToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.segarkanToolStripMenuItem.Text = "Segarkan";
             this.segarkanToolStripMenuItem.Click += new System.EventHandler(this.segarkanToolStripMenuItem_Click);
             // 
@@ -254,6 +259,14 @@
             this.periksaStatusOtomatisToolStripMenuItem.Size = new System.Drawing.Size(278, 22);
             this.periksaStatusOtomatisToolStripMenuItem.Text = "Periksa Webhook otomatis";
             this.periksaStatusOtomatisToolStripMenuItem.Click += new System.EventHandler(this.periksaStatusOtomatisToolStripMenuItem_Click);
+            // 
+            // bersihkanPendingCountOtomatisToolStripMenuItem
+            // 
+            this.bersihkanPendingCountOtomatisToolStripMenuItem.CheckOnClick = true;
+            this.bersihkanPendingCountOtomatisToolStripMenuItem.Name = "bersihkanPendingCountOtomatisToolStripMenuItem";
+            this.bersihkanPendingCountOtomatisToolStripMenuItem.Size = new System.Drawing.Size(278, 22);
+            this.bersihkanPendingCountOtomatisToolStripMenuItem.Text = "Bersihkan pending count otomatis";
+            this.bersihkanPendingCountOtomatisToolStripMenuItem.Click += new System.EventHandler(this.bersihkanPendingCountOtomatisToolStripMenuItem_Click);
             // 
             // SetURIHookSetBersihkanToolStripMenuItem
             // 
@@ -378,13 +391,19 @@
             this.MainNotif.Visible = true;
             this.MainNotif.Click += new System.EventHandler(this.MainNotif_Click);
             // 
-            // bersihkanPendingCountOtomatisToolStripMenuItem
+            // mulaiUlangToolStripMenuItem
             // 
-            this.bersihkanPendingCountOtomatisToolStripMenuItem.CheckOnClick = true;
-            this.bersihkanPendingCountOtomatisToolStripMenuItem.Name = "bersihkanPendingCountOtomatisToolStripMenuItem";
-            this.bersihkanPendingCountOtomatisToolStripMenuItem.Size = new System.Drawing.Size(278, 22);
-            this.bersihkanPendingCountOtomatisToolStripMenuItem.Text = "Bersihkan pending count otomatis";
-            this.bersihkanPendingCountOtomatisToolStripMenuItem.Click += new System.EventHandler(this.bersihkanPendingCountOtomatisToolStripMenuItem_Click);
+            this.mulaiUlangToolStripMenuItem.Name = "mulaiUlangToolStripMenuItem";
+            this.mulaiUlangToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.mulaiUlangToolStripMenuItem.Text = "Mulai ulang";
+            this.mulaiUlangToolStripMenuItem.Click += new System.EventHandler(this.mulaiUlangToolStripMenuItem_Click);
+            // 
+            // keluarToolStripMenuItem
+            // 
+            this.keluarToolStripMenuItem.Name = "keluarToolStripMenuItem";
+            this.keluarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.keluarToolStripMenuItem.Text = "Keluar";
+            this.keluarToolStripMenuItem.Click += new System.EventHandler(this.keluarToolStripMenuItem_Click);
             // 
             // FrmAwal
             // 
@@ -456,6 +475,8 @@
         private System.Windows.Forms.ToolStripMenuItem tutupKeTrayToolStripMenuItem;
         private System.Windows.Forms.NotifyIcon MainNotif;
         private System.Windows.Forms.ToolStripMenuItem bersihkanPendingCountOtomatisToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mulaiUlangToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem keluarToolStripMenuItem;
     }
 }
 

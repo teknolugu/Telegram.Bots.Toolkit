@@ -46,6 +46,7 @@ namespace Telegram.Bots.Toolkit.Views
             int h = Convert.ToInt32(Pengaturan.Baca("WinHeight"));
             int w = Convert.ToInt32(Pengaturan.Baca("WinWidth"));
 
+            Text = Application.ProductName + " " + Application.ProductVersion;
             periksaStatusOtomatisToolStripMenuItem.Checked = Convert.ToBoolean(Pengaturan.Baca("AutoCekWebhook"));
             bersihkanPendingCountOtomatisToolStripMenuItem.Checked = Convert.ToBoolean(Pengaturan.Baca("AutoCleanPendingUpdate"));
             SetURIHookSetBersihkanToolStripMenuItem.Checked = Convert.ToBoolean(Pengaturan.Baca("SetURIHookSetBersih"));
@@ -326,5 +327,15 @@ namespace Telegram.Bots.Toolkit.Views
         }
 
         #endregion Menus
+
+        private void mulaiUlangToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
+        }
+
+        private void keluarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
