@@ -63,6 +63,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.MainNotif = new System.Windows.Forms.NotifyIcon(this.components);
+            this.bersihkanPendingCountOtomatisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -240,6 +241,7 @@
             // 
             this.pengaturanToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.periksaStatusOtomatisToolStripMenuItem,
+            this.bersihkanPendingCountOtomatisToolStripMenuItem,
             this.SetURIHookSetBersihkanToolStripMenuItem,
             this.tutupKeTrayToolStripMenuItem});
             this.pengaturanToolStripMenuItem.Name = "pengaturanToolStripMenuItem";
@@ -377,6 +379,14 @@
             this.MainNotif.Visible = true;
             this.MainNotif.Click += new System.EventHandler(this.MainNotif_Click);
             // 
+            // bersihkanPendingCountOtomatisToolStripMenuItem
+            // 
+            this.bersihkanPendingCountOtomatisToolStripMenuItem.CheckOnClick = true;
+            this.bersihkanPendingCountOtomatisToolStripMenuItem.Name = "bersihkanPendingCountOtomatisToolStripMenuItem";
+            this.bersihkanPendingCountOtomatisToolStripMenuItem.Size = new System.Drawing.Size(278, 22);
+            this.bersihkanPendingCountOtomatisToolStripMenuItem.Text = "Bersihkan pending count otomatis";
+            this.bersihkanPendingCountOtomatisToolStripMenuItem.Click += new System.EventHandler(this.bersihkanPendingCountOtomatisToolStripMenuItem_Click);
+            // 
             // FrmAwal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -446,6 +456,7 @@
         private System.Windows.Forms.ToolStripMenuItem segarkanToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tutupKeTrayToolStripMenuItem;
         private System.Windows.Forms.NotifyIcon MainNotif;
+        private System.Windows.Forms.ToolStripMenuItem bersihkanPendingCountOtomatisToolStripMenuItem;
     }
 }
 

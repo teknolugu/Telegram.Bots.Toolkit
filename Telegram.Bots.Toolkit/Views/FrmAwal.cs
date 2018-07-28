@@ -44,6 +44,7 @@ namespace Telegram.Bots.Toolkit.Views
             int w = Convert.ToInt32(Pengaturan.Baca("WinWidth"));
 
             periksaStatusOtomatisToolStripMenuItem.Checked = Convert.ToBoolean(Pengaturan.Baca("AutoCekWebhook"));
+            bersihkanPendingCountOtomatisToolStripMenuItem.Checked = Convert.ToBoolean(Pengaturan.Baca("AutoCleanPendingUpdate"));
             SetURIHookSetBersihkanToolStripMenuItem.Checked = Convert.ToBoolean(Pengaturan.Baca("SetURIHookSetBersih"));
             tutupKeTrayToolStripMenuItem.Checked = Convert.ToBoolean(Pengaturan.Baca("TutupKeTray"));
             CmbBots.Text = Pengaturan.Baca("BotTerpilih").ToString();
@@ -123,6 +124,8 @@ namespace Telegram.Bots.Toolkit.Views
         {
             tsLStatus.Text = "Siaga..";
             BtnBersihkan.Text = "Mulai Bersihkan";
+            tsProgBar.Value = 0;
+
             if (ContainsFocus)
             {
                 MessageBox.Show("Pragat!", Application.ProductName,
@@ -161,6 +164,12 @@ namespace Telegram.Bots.Toolkit.Views
                         LblResult.Text += "\nLebih dari 20";
                         LblResult.Text += "\nLebih dari 5";
                     }));
+
+                    if (bersihkanPendingCountOtomatisToolStripMenuItem.Checked)
+                    {
+                        BgCleaner.RunWorkerAsync();
+                    }
+                    //PushNotif("Pending Update Count : " + data.PendingUpdateCount);
                 }
             }
             else
@@ -194,6 +203,30 @@ namespace Telegram.Bots.Toolkit.Views
         private void CmbBots_DropDown(object sender, EventArgs e)
         {
             LoadBots();
+        }
+
+        private void FrmAwal_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!tutupKeTrayToolStripMenuItem.Checked)
+            {
+                var dlgRes = MessageBox.Show("Apakah kamu yakin mau menutup?", Application.ProductName,
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+                if (dlgRes != DialogResult.Yes)
+                { e.Cancel = true; }
+            }
+            else
+            {
+                e.Cancel = true;
+                Hide();
+            }
+        }
+
+        private void FrmAwal_LocationChanged(object sender, EventArgs e)
+        {
+            Pengaturan.Tulis("WinLocX", Location.X.ToString());
+            Pengaturan.Tulis("WinLocY", Location.Y.ToString());
+            Pengaturan.Tulis("WinHeight", Height.ToString());
+            Pengaturan.Tulis("WinWidth", Width.ToString());
         }
 
         #endregion Automation
@@ -269,9 +302,19 @@ namespace Telegram.Bots.Toolkit.Views
             }
         }
 
+        private void MainNotif_Click(object sender, EventArgs e)
+        {
+            if (Visible) { Hide(); } else { Show(); }
+        }
+
         #endregion Tindakan
 
         #region Menus
+
+        private void bersihkanPendingCountOtomatisToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Pengaturan.Tulis("AutoCleanPendingUpdate", bersihkanPendingCountOtomatisToolStripMenuItem.Checked.ToString());
+        }
 
         private void segarkanToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -294,34 +337,5 @@ namespace Telegram.Bots.Toolkit.Views
         }
 
         #endregion Menus
-
-        private void FrmAwal_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (!tutupKeTrayToolStripMenuItem.Checked)
-            {
-                var dlgRes = MessageBox.Show("Apakah kamu yakin mau menutup?", Application.ProductName,
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
-                if (dlgRes != DialogResult.Yes)
-                { e.Cancel = true; }
-            }
-            else
-            {
-                e.Cancel = true;
-                Hide();
-            }
-        }
-
-        private void MainNotif_Click(object sender, EventArgs e)
-        {
-            if (Visible) { Hide(); } else { Show(); }
-        }
-
-        private void FrmAwal_LocationChanged(object sender, EventArgs e)
-        {
-            Pengaturan.Tulis("WinLocX", Location.X.ToString());
-            Pengaturan.Tulis("WinLocY", Location.Y.ToString());
-            Pengaturan.Tulis("WinHeight", Height.ToString());
-            Pengaturan.Tulis("WinWidth", Width.ToString());
-        }
     }
 }
