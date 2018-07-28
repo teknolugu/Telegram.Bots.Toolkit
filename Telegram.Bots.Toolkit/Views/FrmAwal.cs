@@ -12,6 +12,8 @@ namespace Telegram.Bots.Toolkit.Views
         public FrmAwal()
         {
             InitializeComponent();
+
+            LoadBots();
             LoadSettings();
             MainNotif.Visible = true;
         }
@@ -25,13 +27,15 @@ namespace Telegram.Bots.Toolkit.Views
                 TbxToken.Text = SBots.GetBots(CmbBots.Text.Trim())[0].Token;
                 TbxUri.Text = SBots.GetBots(CmbBots.Text.Trim())[0].UriClean;
                 TbxUriDefault.Text = SBots.GetBots(CmbBots.Text.Trim())[0].UriCurrent;
+                Pengaturan.Tulis("BotTerpilih", CmbBots.Text);
             }
         }
 
         private void LoadBots()
         {
-            //CmbBots.Items.Clear();
+            int sel = CmbBots.SelectedIndex;
             CmbBots.DataSource = SBots.GetSemuaBot();
+            CmbBots.SelectedIndex = sel;
         }
 
         private void LoadSettings()
@@ -42,6 +46,7 @@ namespace Telegram.Bots.Toolkit.Views
             periksaStatusOtomatisToolStripMenuItem.Checked = Convert.ToBoolean(Pengaturan.Baca("AutoCekWebhook"));
             SetURIHookSetBersihkanToolStripMenuItem.Checked = Convert.ToBoolean(Pengaturan.Baca("SetURIHookSetBersih"));
             tutupKeTrayToolStripMenuItem.Checked = Convert.ToBoolean(Pengaturan.Baca("TutupKeTray"));
+            CmbBots.Text = Pengaturan.Baca("BotTerpilih").ToString();
             Location = new Point(Convert.ToInt16(Pengaturan.Baca("WinLocX")), Convert.ToInt16(Pengaturan.Baca("WinLocY")));
             Size = new Size(w, h);
         }
