@@ -393,9 +393,11 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MinimumSize = new System.Drawing.Size(700, 420);
             this.Name = "FrmAwal";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "TelegramBots Toolkit";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmAwal_FormClosing);
+            this.LocationChanged += new System.EventHandler(this.FrmAwal_LocationChanged);
+            this.SizeChanged += new System.EventHandler(this.FrmAwal_LocationChanged);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
