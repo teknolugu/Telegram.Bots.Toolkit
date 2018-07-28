@@ -146,7 +146,6 @@
             this.BgCleaner.WorkerReportsProgress = true;
             this.BgCleaner.WorkerSupportsCancellation = true;
             this.BgCleaner.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BgCleaner_DoWork);
-            this.BgCleaner.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BgCleaner_ProgressChanged);
             this.BgCleaner.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BgCleaner_RunWorkerCompleted);
             // 
             // BwChecker

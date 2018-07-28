@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using Telegram.Bots.Toolkit.Model;
+using Telegram.Bots.Toolkit.Helpers;
 using Telegram.Bots.Toolkit.Services;
 
 namespace Telegram.Bots.Toolkit.Views
@@ -75,10 +76,11 @@ namespace Telegram.Bots.Toolkit.Views
                 !string.IsNullOrEmpty(sWebhook.UriClean))
             {
                 int count = sWebhook.GetWebhookInfo().PendingUpdateCount;
-                tsProgBar.GetCurrentParent().Invoke(new MethodInvoker(delegate
+                tsProgBar.GetCurrentParent().Invoke((MethodInvoker)delegate
                 {
                     tsProgBar.Maximum = count;
-                }));
+                });
+
                 for (int x = 0; x <= count; count--)
                 {
                     sWebhook.HapusWebhook();
@@ -86,15 +88,13 @@ namespace Telegram.Bots.Toolkit.Views
                     sWebhook.SetWebhook();
                     count = sWebhook.GetWebhookInfo().PendingUpdateCount;
                     e.Result = count;
-                    tsProgBar.GetCurrentParent().Invoke(new MethodInvoker(delegate
+                    tsProgBar.GetCurrentParent().Invoke((MethodInvoker)delegate
                     {
                         tsProgBar.Value = tsProgBar.Maximum - count;
-                    }));
+                    });
 
-                    LblResult.Invoke(new MethodInvoker(delegate
-                    {
-                        LblResult.Text = "Sisa pending : " + count;
-                    }));
+                    //HControls.InvokeIfRequired(this, LblResult => LblResult.Text = "Sisa pendings : " + count);
+                    LblResult.Invoke((MethodInvoker)delegate { LblResult.Text = "Sisa pending : " + count; });
                 }
 
                 if (!string.IsNullOrEmpty(sWebhook.UriCurrent) &&
@@ -141,21 +141,21 @@ namespace Telegram.Bots.Toolkit.Views
             if (!string.IsNullOrEmpty(sWebhook.Token))
             {
                 var data = sWebhook.GetWebhookInfo();
-                LblResult.Invoke(new MethodInvoker(delegate
+                LblResult.Invoke((MethodInvoker)delegate
                 {
                     LblResult.Text = "URI Webhook         : " + data.Url +
                                      "\nPending Update     : " + data.PendingUpdateCount +
                                      "\nMax Connection     : " + data.MaxConnections +
                                      "\nLast Error Date       : " + data.LastErrorDate +
                                      "\nLast Error Message : " + data.LastErrorMessage;
-                }));
+                });
 
                 if (data.PendingUpdateCount > 5)
                 {
-                    LblResult.Invoke(new MethodInvoker(delegate
+                    LblResult.Invoke((MethodInvoker)delegate
                     {
                         LblResult.Text += "\nLebih dari " + data.PendingUpdateCount;
-                    }));
+                    });
 
                     if (bersihkanPendingCountOtomatisToolStripMenuItem.Checked)
                     {
