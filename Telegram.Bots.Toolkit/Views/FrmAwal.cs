@@ -9,6 +9,8 @@ namespace Telegram.Bots.Toolkit.Views
 {
     public partial class FrmAwal : Form
     {
+        private SWebhookInfo sWebhook = new SWebhookInfo();
+
         public FrmAwal()
         {
             InitializeComponent();
@@ -27,7 +29,7 @@ namespace Telegram.Bots.Toolkit.Views
                 TbxToken.Text = SBots.GetBots(CmbBots.Text.Trim())[0].Token;
                 TbxUri.Text = SBots.GetBots(CmbBots.Text.Trim())[0].UriClean;
                 TbxUriDefault.Text = SBots.GetBots(CmbBots.Text.Trim())[0].UriCurrent;
-                Pengaturan.Tulis("BotTerpilih", CmbBots.Text);
+                Pengaturan.Tulis("BotTerpilih", CmbBots.SelectedIndex.ToString());
             }
         }
 
@@ -38,17 +40,41 @@ namespace Telegram.Bots.Toolkit.Views
             CmbBots.SelectedIndex = sel;
         }
 
+        private void LoadForm(Form frm, bool inCenter)
+        {
+            frm.FormBorderStyle = FormBorderStyle.None;
+            frm.TopLevel = false;
+            frm.Visible = true;
+            frm.Dock = DockStyle.Fill;
+            PnlOverlay.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left))));
+
+            if (inCenter)
+            {
+                PnlOverlay.Location = new Point(Width / 2 - PnlOverlay.Width / 2 - 5, 25);
+                PnlOverlay.Size = new Size(670, 330);
+                PnlOverlay.Anchor = ((AnchorStyles)(AnchorStyles.Top));
+            }
+
+            PnlFormDock.Controls.Clear();
+            PnlFormDock.Controls.Add(frm);
+            PnlOverlay.Visible = true;
+        }
+
         private void LoadSettings()
         {
             int h = Convert.ToInt32(Pengaturan.Baca("WinHeight"));
             int w = Convert.ToInt32(Pengaturan.Baca("WinWidth"));
 
+            Text = Application.ProductName + " " + Application.ProductVersion;
             periksaStatusOtomatisToolStripMenuItem.Checked = Convert.ToBoolean(Pengaturan.Baca("AutoCekWebhook"));
+            bersihkanPendingCountOtomatisToolStripMenuItem.Checked = Convert.ToBoolean(Pengaturan.Baca("AutoCleanPendingUpdate"));
             SetURIHookSetBersihkanToolStripMenuItem.Checked = Convert.ToBoolean(Pengaturan.Baca("SetURIHookSetBersih"));
             tutupKeTrayToolStripMenuItem.Checked = Convert.ToBoolean(Pengaturan.Baca("TutupKeTray"));
-            CmbBots.Text = Pengaturan.Baca("BotTerpilih").ToString();
+            CmbBots.SelectedIndex = Convert.ToInt16(Pengaturan.Baca("BotTerpilih"));
             Location = new Point(Convert.ToInt16(Pengaturan.Baca("WinLocX")), Convert.ToInt16(Pengaturan.Baca("WinLocY")));
             Size = new Size(w, h);
+            PnlOverlay.Location = new Point(7, 25);
+            PnlOverlay.Size = new Size(670, 330);
         }
 
         private void PushNotif(string notif)
@@ -64,43 +90,39 @@ namespace Telegram.Bots.Toolkit.Views
 
         private void BgCleaner_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            Pending pending = new Pending()
-            {
-                Token = TbxToken.Text.Trim(),
-                UriClean = TbxUri.Text.Trim(),
-                UriCurrent = TbxUriDefault.Text.Trim()
-            };
+            sWebhook.Token = TbxToken.Text.Trim();
+            sWebhook.UriClean = TbxUri.Text.Trim();
+            sWebhook.UriCurrent = TbxUriDefault.Text.Trim();
 
-            if (!string.IsNullOrEmpty(pending.Token) &&
-                !string.IsNullOrEmpty(pending.UriClean))
+            if (!string.IsNullOrEmpty(sWebhook.Token) &&
+                !string.IsNullOrEmpty(sWebhook.UriClean))
             {
-                int count = pending.GetWebhookInfo().PendingUpdateCount;
-                tsProgBar.GetCurrentParent().Invoke(new MethodInvoker(delegate
+                int count = sWebhook.GetWebhookInfo().PendingUpdateCount;
+                tsProgBar.GetCurrentParent().Invoke((MethodInvoker)delegate
                 {
                     tsProgBar.Maximum = count;
-                }));
+                });
+
                 for (int x = 0; x <= count; count--)
                 {
-                    pending.HapusWebhook();
-                    pending.GetUpdates();
-                    pending.SetWebhook();
-                    count = pending.GetWebhookInfo().PendingUpdateCount;
+                    sWebhook.HapusWebhook();
+                    sWebhook.GetUpdates();
+                    sWebhook.SetWebhook();
+                    count = sWebhook.GetWebhookInfo().PendingUpdateCount;
                     e.Result = count;
-                    tsProgBar.GetCurrentParent().Invoke(new MethodInvoker(delegate
+                    tsProgBar.GetCurrentParent().Invoke((MethodInvoker)delegate
                     {
                         tsProgBar.Value = tsProgBar.Maximum - count;
-                    }));
+                    });
 
-                    LblResult.Invoke(new MethodInvoker(delegate
-                    {
-                        LblResult.Text = "Sisa pending : " + count;
-                    }));
+                    //HControls.InvokeIfRequired(this, LblResult => LblResult.Text = "Sisa pendings : " + count);
+                    LblResult.Invoke((MethodInvoker)delegate { LblResult.Text = "Sisa pending : " + count; });
                 }
 
-                if (!string.IsNullOrEmpty(pending.UriCurrent) &&
+                if (!string.IsNullOrEmpty(sWebhook.UriCurrent) &&
                     SetURIHookSetBersihkanToolStripMenuItem.Checked)
                 {
-                    pending.SetWebhookDefault();
+                    sWebhook.SetWebhookDefault();
                 }
 
                 if (!BwChecker.IsBusy)
@@ -115,14 +137,12 @@ namespace Telegram.Bots.Toolkit.Views
             }
         }
 
-        private void BgCleaner_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
-        {
-        }
-
         private void BgCleaner_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
             tsLStatus.Text = "Siaga..";
             BtnBersihkan.Text = "Mulai Bersihkan";
+            tsProgBar.Value = 0;
+
             if (ContainsFocus)
             {
                 MessageBox.Show("Pragat!", Application.ProductName,
@@ -136,31 +156,34 @@ namespace Telegram.Bots.Toolkit.Views
 
         private void BwChecker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            Pending pending = new Pending()
-            {
-                Token = TbxToken.Text.Trim(),
-                UriClean = TbxUri.Text.Trim(),
-                UriCurrent = TbxUriDefault.Text.Trim()
-            };
+            sWebhook.Token = TbxToken.Text.Trim();
+            sWebhook.UriClean = TbxUri.Text.Trim();
+            sWebhook.UriCurrent = TbxUriDefault.Text.Trim();
 
-            if (!string.IsNullOrEmpty(pending.Token))
+            if (!string.IsNullOrEmpty(sWebhook.Token))
             {
-                var data = pending.GetWebhookInfo();
-                LblResult.Invoke(new MethodInvoker(delegate
+                var data = sWebhook.GetWebhookInfo();
+                LblResult.Invoke((MethodInvoker)delegate
                 {
                     LblResult.Text = "URI Webhook         : " + data.Url +
                                      "\nPending Update     : " + data.PendingUpdateCount +
                                      "\nMax Connection     : " + data.MaxConnections +
                                      "\nLast Error Date       : " + data.LastErrorDate +
                                      "\nLast Error Message : " + data.LastErrorMessage;
-                }));
+                });
+
                 if (data.PendingUpdateCount > 5)
                 {
-                    LblResult.Invoke(new MethodInvoker(delegate
+                    LblResult.Invoke((MethodInvoker)delegate
                     {
-                        LblResult.Text += "\nLebih dari 20";
-                        LblResult.Text += "\nLebih dari 5";
-                    }));
+                        LblResult.Text += "\nLebih dari " + data.PendingUpdateCount;
+                    });
+
+                    if (bersihkanPendingCountOtomatisToolStripMenuItem.Checked)
+                    {
+                        BgCleaner.RunWorkerAsync();
+                    }
+                    //PushNotif("Pending Update Count : " + data.PendingUpdateCount);
                 }
             }
             else
@@ -196,22 +219,43 @@ namespace Telegram.Bots.Toolkit.Views
             LoadBots();
         }
 
+        private void FrmAwal_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!tutupKeTrayToolStripMenuItem.Checked)
+            {
+                var dlgRes = MessageBox.Show("Apakah kamu yakin mau menutup?", Application.ProductName,
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+                if (dlgRes != DialogResult.Yes)
+                { e.Cancel = true; }
+            }
+            else
+            {
+                e.Cancel = true;
+                Hide();
+            }
+        }
+
+        private void FrmAwal_LocationChanged(object sender, EventArgs e)
+        {
+            Pengaturan.Tulis("WinLocX", Location.X.ToString());
+            Pengaturan.Tulis("WinLocY", Location.Y.ToString());
+            Pengaturan.Tulis("WinHeight", Height.ToString());
+            Pengaturan.Tulis("WinWidth", Width.ToString());
+        }
+
         #endregion Automation
 
         #region Tindakan
 
         private void BtnCek_Click(object sender, EventArgs e)
         {
-            Pending pending = new Pending()
-            {
-                Token = TbxToken.Text.Trim(),
-                UriClean = TbxUri.Text.Trim(),
-                UriCurrent = TbxUriDefault.Text.Trim()
-            };
+            sWebhook.Token = TbxToken.Text.Trim();
+            sWebhook.UriClean = TbxUri.Text.Trim();
+            sWebhook.UriCurrent = TbxUriDefault.Text.Trim();
 
             try
             {
-                pending.SetWebhookDefault();
+                sWebhook.SetWebhookDefault();
                 tsLStatus.Text = "Webhook berhasil di set";
                 BwChecker.RunWorkerAsync();
             }
@@ -220,6 +264,11 @@ namespace Telegram.Bots.Toolkit.Views
                 MessageBox.Show("Silakan tunggu hingga proses check selesai", Application.ProductName,
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void BtnCloseOverlay_Click(object sender, EventArgs e)
+        {
+            PnlOverlay.Visible = false;
         }
 
         private void BtnBersihkan_Click(object sender, EventArgs e)
@@ -235,6 +284,20 @@ namespace Telegram.Bots.Toolkit.Views
                 BgCleaner.RunWorkerAsync();
                 tsLStatus.Text = "Memulai membersihkan..";
                 BtnBersihkan.Text = "Stop Bersihkan";
+            }
+        }
+
+        private void BtnHapusBot_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(CmbBots.Text))
+            {
+                SBots.HapusBot(CmbBots.Text);
+                tsLStatus.Text = "Berhasil hapus Bot..";
+                LoadBots();
+            }
+            else
+            {
+                tsLStatus.Text = "Pilih Bot yg mau di Hapus..";
             }
         }
 
@@ -255,23 +318,34 @@ namespace Telegram.Bots.Toolkit.Views
             tsLStatus.Text = "Berhasil menambahkan Bot..";
         }
 
-        private void BtnHapusBot_Click(object sender, EventArgs e)
+        private void MainNotif_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(CmbBots.Text))
-            {
-                SBots.HapusBot(CmbBots.Text);
-                tsLStatus.Text = "Berhasil hapus Bot..";
-                LoadBots();
-            }
-            else
-            {
-                tsLStatus.Text = "Pilih Bot yg mau di Hapus..";
-            }
+            if (Visible) { Hide(); } else { Show(); }
         }
 
         #endregion Tindakan
 
         #region Menus
+
+        private void bersihkanPendingCountOtomatisToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Pengaturan.Tulis("AutoCleanPendingUpdate", bersihkanPendingCountOtomatisToolStripMenuItem.Checked.ToString());
+        }
+
+        private void tentangToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoadForm(new FrmTentang(), true);
+        }
+
+        private void keluarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void mulaiUlangToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
+        }
 
         private void segarkanToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -294,34 +368,5 @@ namespace Telegram.Bots.Toolkit.Views
         }
 
         #endregion Menus
-
-        private void FrmAwal_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (!tutupKeTrayToolStripMenuItem.Checked)
-            {
-                var dlgRes = MessageBox.Show("Apakah kamu yakin mau menutup?", Application.ProductName,
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
-                if (dlgRes != DialogResult.Yes)
-                { e.Cancel = true; }
-            }
-            else
-            {
-                e.Cancel = true;
-                Hide();
-            }
-        }
-
-        private void MainNotif_Click(object sender, EventArgs e)
-        {
-            if (Visible) { Hide(); } else { Show(); }
-        }
-
-        private void FrmAwal_LocationChanged(object sender, EventArgs e)
-        {
-            Pengaturan.Tulis("WinLocX", Location.X.ToString());
-            Pengaturan.Tulis("WinLocY", Location.Y.ToString());
-            Pengaturan.Tulis("WinHeight", Height.ToString());
-            Pengaturan.Tulis("WinWidth", Width.ToString());
-        }
     }
 }

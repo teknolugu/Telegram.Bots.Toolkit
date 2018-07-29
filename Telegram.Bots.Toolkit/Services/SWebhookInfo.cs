@@ -4,7 +4,7 @@ using Telegram.Bots.Toolkit.Model;
 
 namespace Telegram.Bots.Toolkit.Services
 {
-    internal class Pending : TelegramBot
+    internal class SWebhookInfo : TelegramBot
     {
         public WebhookInfo GetWebhookInfo()
         {
