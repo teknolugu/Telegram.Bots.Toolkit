@@ -1,0 +1,22 @@
+version: 1.0.0.{build}.{branch}
+image: Visual Studio 2017
+platform: Any CPU
+before_build:
+- cmd: nuget restore
+after_build:
+- cmd: 7z a Telegram.Bots.Toolkit.%APPVEYOR_BUILD_VERSION%.%APPVEYOR_REPO_COMMIT%.zip %APPVEYOR_BUILD_FOLDER%\Telegram.Bots.Toolkit\bin\Debug\*
+build:
+  verbosity: minimal
+artifacts:
+- path: Telegram.Bots.Toolkit.%APPVEYOR_BUILD_VERSION%.%APPVEYOR_REPO_COMMIT%.zip
+deploy:
+- provider: FTP
+  host: ftp.winten.tk
+  protocol: ftp
+  username: u839111123
+  password:
+    secure: VY3WNeuXMq1nMcFp6BBZ6g==
+  folder: /files/appveyor/Telegram.Bots.Toolkit
+- provider: GitHub
+  auth_token:
+    secure: AtWJJMr3AOaaRYenaXcxZQ3F2tHm8xwT88aa2e/RHfrx+esAwoU3BfDjUfyKjCg+
