@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using Telegram.Bots.Toolkit.Model;
-using Telegram.Bots.Toolkit.Helpers;
 using Telegram.Bots.Toolkit.Services;
 
 namespace Telegram.Bots.Toolkit.Views
@@ -41,6 +40,26 @@ namespace Telegram.Bots.Toolkit.Views
             CmbBots.SelectedIndex = sel;
         }
 
+        private void LoadForm(Form frm, bool inCenter)
+        {
+            frm.FormBorderStyle = FormBorderStyle.None;
+            frm.TopLevel = false;
+            frm.Visible = true;
+            frm.Dock = DockStyle.Fill;
+            PnlOverlay.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left))));
+
+            if (inCenter)
+            {
+                PnlOverlay.Location = new Point(Width / 2 - PnlOverlay.Width / 2 - 5, 25);
+                PnlOverlay.Size = new Size(670, 330);
+                PnlOverlay.Anchor = ((AnchorStyles)(AnchorStyles.Top));
+            }
+
+            PnlFormDock.Controls.Clear();
+            PnlFormDock.Controls.Add(frm);
+            PnlOverlay.Visible = true;
+        }
+
         private void LoadSettings()
         {
             int h = Convert.ToInt32(Pengaturan.Baca("WinHeight"));
@@ -54,6 +73,8 @@ namespace Telegram.Bots.Toolkit.Views
             CmbBots.Text = Pengaturan.Baca("BotTerpilih").ToString();
             Location = new Point(Convert.ToInt16(Pengaturan.Baca("WinLocX")), Convert.ToInt16(Pengaturan.Baca("WinLocY")));
             Size = new Size(w, h);
+            PnlOverlay.Location = new Point(7, 25);
+            PnlOverlay.Size = new Size(670, 330);
         }
 
         private void PushNotif(string notif)
@@ -245,6 +266,11 @@ namespace Telegram.Bots.Toolkit.Views
             }
         }
 
+        private void BtnCloseOverlay_Click(object sender, EventArgs e)
+        {
+            PnlOverlay.Visible = false;
+        }
+
         private void BtnBersihkan_Click(object sender, EventArgs e)
         {
             if (BgCleaner.IsBusy)
@@ -258,6 +284,20 @@ namespace Telegram.Bots.Toolkit.Views
                 BgCleaner.RunWorkerAsync();
                 tsLStatus.Text = "Memulai membersihkan..";
                 BtnBersihkan.Text = "Stop Bersihkan";
+            }
+        }
+
+        private void BtnHapusBot_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(CmbBots.Text))
+            {
+                SBots.HapusBot(CmbBots.Text);
+                tsLStatus.Text = "Berhasil hapus Bot..";
+                LoadBots();
+            }
+            else
+            {
+                tsLStatus.Text = "Pilih Bot yg mau di Hapus..";
             }
         }
 
@@ -277,21 +317,6 @@ namespace Telegram.Bots.Toolkit.Views
             LoadBots();
             tsLStatus.Text = "Berhasil menambahkan Bot..";
         }
-
-        private void BtnHapusBot_Click(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(CmbBots.Text))
-            {
-                SBots.HapusBot(CmbBots.Text);
-                tsLStatus.Text = "Berhasil hapus Bot..";
-                LoadBots();
-            }
-            else
-            {
-                tsLStatus.Text = "Pilih Bot yg mau di Hapus..";
-            }
-        }
-
         private void MainNotif_Click(object sender, EventArgs e)
         {
             if (Visible) { Hide(); } else { Show(); }
@@ -304,6 +329,21 @@ namespace Telegram.Bots.Toolkit.Views
         private void bersihkanPendingCountOtomatisToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Pengaturan.Tulis("AutoCleanPendingUpdate", bersihkanPendingCountOtomatisToolStripMenuItem.Checked.ToString());
+        }
+
+        private void tentangToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoadForm(new FrmTentang(), true);
+        }
+
+        private void keluarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void mulaiUlangToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
         }
 
         private void segarkanToolStripMenuItem_Click(object sender, EventArgs e)
@@ -327,15 +367,5 @@ namespace Telegram.Bots.Toolkit.Views
         }
 
         #endregion Menus
-
-        private void mulaiUlangToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Restart();
-        }
-
-        private void keluarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
     }
 }

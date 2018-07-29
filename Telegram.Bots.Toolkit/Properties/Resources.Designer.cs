@@ -59,5 +59,15 @@ namespace Telegram.Bots.Toolkit.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap defrag_256x256 {
+            get {
+                object obj = ResourceManager.GetObject("defrag_256x256", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
