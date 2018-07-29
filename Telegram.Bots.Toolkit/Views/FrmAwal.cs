@@ -29,7 +29,7 @@ namespace Telegram.Bots.Toolkit.Views
                 TbxToken.Text = SBots.GetBots(CmbBots.Text.Trim())[0].Token;
                 TbxUri.Text = SBots.GetBots(CmbBots.Text.Trim())[0].UriClean;
                 TbxUriDefault.Text = SBots.GetBots(CmbBots.Text.Trim())[0].UriCurrent;
-                Pengaturan.Tulis("BotTerpilih", CmbBots.Text);
+                Pengaturan.Tulis("BotTerpilih", CmbBots.SelectedIndex.ToString());
             }
         }
 
@@ -70,7 +70,7 @@ namespace Telegram.Bots.Toolkit.Views
             bersihkanPendingCountOtomatisToolStripMenuItem.Checked = Convert.ToBoolean(Pengaturan.Baca("AutoCleanPendingUpdate"));
             SetURIHookSetBersihkanToolStripMenuItem.Checked = Convert.ToBoolean(Pengaturan.Baca("SetURIHookSetBersih"));
             tutupKeTrayToolStripMenuItem.Checked = Convert.ToBoolean(Pengaturan.Baca("TutupKeTray"));
-            CmbBots.Text = Pengaturan.Baca("BotTerpilih").ToString();
+            CmbBots.SelectedIndex = Convert.ToInt16(Pengaturan.Baca("BotTerpilih"));
             Location = new Point(Convert.ToInt16(Pengaturan.Baca("WinLocX")), Convert.ToInt16(Pengaturan.Baca("WinLocY")));
             Size = new Size(w, h);
             PnlOverlay.Location = new Point(7, 25);
@@ -317,6 +317,7 @@ namespace Telegram.Bots.Toolkit.Views
             LoadBots();
             tsLStatus.Text = "Berhasil menambahkan Bot..";
         }
+
         private void MainNotif_Click(object sender, EventArgs e)
         {
             if (Visible) { Hide(); } else { Show(); }
