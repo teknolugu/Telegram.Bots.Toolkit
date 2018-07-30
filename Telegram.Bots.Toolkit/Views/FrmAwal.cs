@@ -118,7 +118,7 @@ namespace Telegram.Bots.Toolkit.Views
                     TbxHasil.Invoke((MethodInvoker)delegate
                     {
                         TbxHasil.Text = "Sisa pending \t : " + count +
-                                        "\r\nDiperiksa \t : " + DateTime.Today.ToString();
+                                        "\r\nDiperiksa \t : " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
                     });
                 }
 
@@ -173,7 +173,7 @@ namespace Telegram.Bots.Toolkit.Views
                                     "\r\nMax Connection \t : " + data.MaxConnections +
                                     "\r\nLast Error Date \t : " + data.LastErrorDate +
                                     "\r\nError Message \t : " + data.LastErrorMessage +
-                                    "\r\nDiperiksa \t : " + DateTime.Today.ToString();
+                                    "\r\nDiperiksa \t : " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
                 });
 
                 if (data.PendingUpdateCount > 5)
