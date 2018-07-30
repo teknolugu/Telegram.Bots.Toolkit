@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using Telegram.Bots.Toolkit.Model;
@@ -90,6 +91,8 @@ namespace Telegram.Bots.Toolkit.Views
 
         private void BgCleaner_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
             sWebhook.Token = TbxToken.Text.Trim();
             sWebhook.UriClean = TbxUri.Text.Trim();
             sWebhook.UriCurrent = TbxUriDefault.Text.Trim();
@@ -114,11 +117,12 @@ namespace Telegram.Bots.Toolkit.Views
                     {
                         tsProgBar.Value = tsProgBar.Maximum - count;
                     });
-
+                    stopwatch.Stop();
                     TbxHasil.Invoke((MethodInvoker)delegate
                     {
                         TbxHasil.Text = "Sisa pending \t : " + count +
-                                        "\r\nDiperiksa \t : " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+                                        "\r\nDiperiksa \t : " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") +
+                                    "\r\nWaktu Periksa \t : " + stopwatch.Elapsed; ;
                     });
                 }
 
@@ -159,6 +163,8 @@ namespace Telegram.Bots.Toolkit.Views
 
         private void BwChecker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
             sWebhook.Token = TbxToken.Text.Trim();
             sWebhook.UriClean = TbxUri.Text.Trim();
             sWebhook.UriCurrent = TbxUriDefault.Text.Trim();
@@ -166,6 +172,7 @@ namespace Telegram.Bots.Toolkit.Views
             if (!string.IsNullOrEmpty(sWebhook.Token))
             {
                 var data = sWebhook.GetWebhookInfo();
+                stopwatch.Stop();
                 TbxHasil.Invoke((MethodInvoker)delegate
                 {
                     TbxHasil.Text = "URI Webhook \t : " + data.Url +
@@ -173,7 +180,8 @@ namespace Telegram.Bots.Toolkit.Views
                                     "\r\nMax Connection \t : " + data.MaxConnections +
                                     "\r\nLast Error Date \t : " + data.LastErrorDate +
                                     "\r\nError Message \t : " + data.LastErrorMessage +
-                                    "\r\nDiperiksa \t : " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+                                    "\r\nDiperiksa \t : " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") +
+                                    "\r\nWaktu Periksa \t : " + stopwatch.Elapsed;
                 });
 
                 if (data.PendingUpdateCount > 5)
