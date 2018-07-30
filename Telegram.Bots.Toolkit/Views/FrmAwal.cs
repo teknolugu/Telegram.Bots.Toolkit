@@ -115,7 +115,11 @@ namespace Telegram.Bots.Toolkit.Views
                         tsProgBar.Value = tsProgBar.Maximum - count;
                     });
 
-                    TbxHasil.Invoke((MethodInvoker)delegate { TbxHasil.Text = "Sisa pending : " + count; });
+                    TbxHasil.Invoke((MethodInvoker)delegate
+                    {
+                        TbxHasil.Text = "Mulai \t\t : " + DateTime.Today.ToString() +
+                                        "\r\nSisa pending \t : " + count;
+                    });
                 }
 
                 if (!string.IsNullOrEmpty(sWebhook.UriCurrent) &&
@@ -164,11 +168,12 @@ namespace Telegram.Bots.Toolkit.Views
                 var data = sWebhook.GetWebhookInfo();
                 TbxHasil.Invoke((MethodInvoker)delegate
                 {
-                    TbxHasil.Text = "URI Webhook         : " + data.Url +
-                                     "\nPending Update     : " + data.PendingUpdateCount +
-                                     "\nMax Connection     : " + data.MaxConnections +
-                                     "\nLast Error Date       : " + data.LastErrorDate +
-                                     "\nLast Error Message : " + data.LastErrorMessage;
+                    TbxHasil.Text = "Mulai \t\t : " + DateTime.Today.ToString() +
+                                    "\r\nURI Webhook \t : " + data.Url +
+                                    "\r\nPending Update \t : " + data.PendingUpdateCount +
+                                    "\r\nMax Connection \t : " + data.MaxConnections +
+                                    "\r\nLast Error Date \t : " + data.LastErrorDate +
+                                    "\r\nError Message \t : " + data.LastErrorMessage;
                 });
 
                 if (data.PendingUpdateCount > 5)
