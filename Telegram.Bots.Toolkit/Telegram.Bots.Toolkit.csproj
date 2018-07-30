@@ -75,6 +75,12 @@
     <Compile Include="Services\SWebhookInfo.cs" />
     <Compile Include="Model\TelegramBot.cs" />
     <Compile Include="Services\Me.cs" />
+    <Compile Include="UserControls\COverlayForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\COverlayForm.Designer.cs">
+      <DependentUpon>COverlayForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\FrmAwal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +101,9 @@
     <Compile Include="Views\FrmTentang.Designer.cs">
       <DependentUpon>FrmTentang.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UserControls\COverlayForm.resx">
+      <DependentUpon>COverlayForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\FrmAwal.resx">
       <DependentUpon>FrmAwal.cs</DependentUpon>
       <SubType>Designer</SubType>
