@@ -117,8 +117,8 @@ namespace Telegram.Bots.Toolkit.Views
 
                     TbxHasil.Invoke((MethodInvoker)delegate
                     {
-                        TbxHasil.Text = "Mulai \t\t : " + DateTime.Today.ToString() +
-                                        "\r\nSisa pending \t : " + count;
+                        TbxHasil.Text = "Sisa pending \t : " + count +
+                                        "\r\nDiperiksa \t : " + DateTime.Today.ToString();
                     });
                 }
 
@@ -168,12 +168,12 @@ namespace Telegram.Bots.Toolkit.Views
                 var data = sWebhook.GetWebhookInfo();
                 TbxHasil.Invoke((MethodInvoker)delegate
                 {
-                    TbxHasil.Text = "Mulai \t\t : " + DateTime.Today.ToString() +
-                                    "\r\nURI Webhook \t : " + data.Url +
+                    TbxHasil.Text = "URI Webhook \t : " + data.Url +
                                     "\r\nPending Update \t : " + data.PendingUpdateCount +
                                     "\r\nMax Connection \t : " + data.MaxConnections +
                                     "\r\nLast Error Date \t : " + data.LastErrorDate +
-                                    "\r\nError Message \t : " + data.LastErrorMessage;
+                                    "\r\nError Message \t : " + data.LastErrorMessage +
+                                    "\r\nDiperiksa \t : " + DateTime.Today.ToString();
                 });
 
                 if (data.PendingUpdateCount > 5)
@@ -189,6 +189,16 @@ namespace Telegram.Bots.Toolkit.Views
                     }
                     //PushNotif("Pending Update Count : " + data.PendingUpdateCount);
                 }
+
+                SPing ping = new SPing();
+                ping.Url = TbxUriDefault.Text.Trim();
+                long waktu = ping.GetWaktu();
+                Color warna = ping.GetWarna();
+                tsLPing.GetCurrentParent().Invoke((MethodInvoker)delegate
+                {
+                    tsLPing.Text = "Ping : " + waktu.ToString() + " ms";
+                    tsLPing.ForeColor = warna;
+                });
             }
             else
             {

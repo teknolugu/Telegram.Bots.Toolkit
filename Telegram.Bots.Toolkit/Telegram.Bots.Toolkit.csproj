@@ -67,10 +67,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\HIniParser.cs" />
+    <Compile Include="Helpers\HPing.cs" />
     <Compile Include="Helpers\HQrCode.cs" />
+    <Compile Include="Model\MPing.cs" />
     <Compile Include="Model\MQrData.cs" />
     <Compile Include="Services\Pengaturan.cs" />
     <Compile Include="Services\SBots.cs" />
+    <Compile Include="Services\SPing.cs" />
     <Compile Include="Services\SQrCode.cs" />
     <Compile Include="Services\SWebhookInfo.cs" />
     <Compile Include="Model\TelegramBot.cs" />

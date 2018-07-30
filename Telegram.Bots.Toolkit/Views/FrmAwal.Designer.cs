@@ -72,6 +72,8 @@
             this.TbxHasil = new System.Windows.Forms.TextBox();
             this.alatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buatQrDariHasilToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsLPing = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -164,7 +166,9 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.tsProgBar,
-            this.tsLStatus});
+            this.tsLStatus,
+            this.toolStripStatusLabel2,
+            this.tsLPing});
             this.statusStrip1.Location = new System.Drawing.Point(0, 355);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(684, 26);
@@ -307,7 +311,7 @@
             // tentangToolStripMenuItem
             // 
             this.tentangToolStripMenuItem.Name = "tentangToolStripMenuItem";
-            this.tentangToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.tentangToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.tentangToolStripMenuItem.Text = "Tentang";
             this.tentangToolStripMenuItem.Click += new System.EventHandler(this.tentangToolStripMenuItem_Click);
             // 
@@ -472,6 +476,19 @@
             this.buatQrDariHasilToolStripMenuItem.Text = "Buat Qr dari Hasil";
             this.buatQrDariHasilToolStripMenuItem.Click += new System.EventHandler(this.buatQrDariHasilToolStripMenuItem_Click);
             // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(259, 21);
+            this.toolStripStatusLabel2.Spring = true;
+            // 
+            // tsLPing
+            // 
+            this.tsLPing.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.tsLPing.Name = "tsLPing";
+            this.tsLPing.Size = new System.Drawing.Size(77, 21);
+            this.tsLPing.Text = "Ping : 133 ms";
+            // 
             // FrmAwal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -553,6 +570,8 @@
         private System.Windows.Forms.TextBox TbxHasil;
         private System.Windows.Forms.ToolStripMenuItem alatToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem buatQrDariHasilToolStripMenuItem;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.ToolStripStatusLabel tsLPing;
     }
 }
 
