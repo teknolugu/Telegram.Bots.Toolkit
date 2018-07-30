@@ -36,7 +36,6 @@
             this.TbxUri = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.LblResult = new System.Windows.Forms.Label();
             this.BgCleaner = new System.ComponentModel.BackgroundWorker();
             this.BwChecker = new System.ComponentModel.BackgroundWorker();
             this.TimerChecker = new System.Windows.Forms.Timer(this.components);
@@ -47,6 +46,8 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mulaiUlangToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.keluarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.segarkanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pengaturanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,6 +56,7 @@
             this.SetURIHookSetBersihkanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tutupKeTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bantuanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tentangToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.BtnHapusBot = new System.Windows.Forms.Button();
             this.BtnSimpanBot = new System.Windows.Forms.Button();
@@ -64,12 +66,12 @@
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.MainNotif = new System.Windows.Forms.NotifyIcon(this.components);
-            this.mulaiUlangToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.keluarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PnlOverlay = new System.Windows.Forms.Panel();
             this.BtnCloseOverlay = new System.Windows.Forms.Button();
             this.PnlFormDock = new System.Windows.Forms.Panel();
-            this.tentangToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TbxHasil = new System.Windows.Forms.TextBox();
+            this.alatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buatQrDariHasilToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -138,16 +140,6 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "URI Clean Hook";
             // 
-            // LblResult
-            // 
-            this.LblResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.LblResult.Location = new System.Drawing.Point(6, 17);
-            this.LblResult.Name = "LblResult";
-            this.LblResult.Size = new System.Drawing.Size(651, 112);
-            this.LblResult.TabIndex = 6;
-            // 
             // BgCleaner
             // 
             this.BgCleaner.WorkerReportsProgress = true;
@@ -201,7 +193,7 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.LblResult);
+            this.groupBox1.Controls.Add(this.TbxHasil);
             this.groupBox1.Location = new System.Drawing.Point(12, 207);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(663, 132);
@@ -214,6 +206,7 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.editToolStripMenuItem,
+            this.alatToolStripMenuItem,
             this.pengaturanToolStripMenuItem,
             this.bantuanToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -231,6 +224,20 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
+            // mulaiUlangToolStripMenuItem
+            // 
+            this.mulaiUlangToolStripMenuItem.Name = "mulaiUlangToolStripMenuItem";
+            this.mulaiUlangToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.mulaiUlangToolStripMenuItem.Text = "Mulai ulang";
+            this.mulaiUlangToolStripMenuItem.Click += new System.EventHandler(this.mulaiUlangToolStripMenuItem_Click);
+            // 
+            // keluarToolStripMenuItem
+            // 
+            this.keluarToolStripMenuItem.Name = "keluarToolStripMenuItem";
+            this.keluarToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.keluarToolStripMenuItem.Text = "Keluar";
+            this.keluarToolStripMenuItem.Click += new System.EventHandler(this.keluarToolStripMenuItem_Click);
+            // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -242,7 +249,7 @@
             // segarkanToolStripMenuItem
             // 
             this.segarkanToolStripMenuItem.Name = "segarkanToolStripMenuItem";
-            this.segarkanToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.segarkanToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.segarkanToolStripMenuItem.Text = "Segarkan";
             this.segarkanToolStripMenuItem.Click += new System.EventHandler(this.segarkanToolStripMenuItem_Click);
             // 
@@ -296,6 +303,13 @@
             this.bantuanToolStripMenuItem.Name = "bantuanToolStripMenuItem";
             this.bantuanToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
             this.bantuanToolStripMenuItem.Text = "Bantuan";
+            // 
+            // tentangToolStripMenuItem
+            // 
+            this.tentangToolStripMenuItem.Name = "tentangToolStripMenuItem";
+            this.tentangToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.tentangToolStripMenuItem.Text = "Tentang";
+            this.tentangToolStripMenuItem.Click += new System.EventHandler(this.tentangToolStripMenuItem_Click);
             // 
             // groupBox2
             // 
@@ -398,20 +412,6 @@
             this.MainNotif.Visible = true;
             this.MainNotif.Click += new System.EventHandler(this.MainNotif_Click);
             // 
-            // mulaiUlangToolStripMenuItem
-            // 
-            this.mulaiUlangToolStripMenuItem.Name = "mulaiUlangToolStripMenuItem";
-            this.mulaiUlangToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.mulaiUlangToolStripMenuItem.Text = "Mulai ulang";
-            this.mulaiUlangToolStripMenuItem.Click += new System.EventHandler(this.mulaiUlangToolStripMenuItem_Click);
-            // 
-            // keluarToolStripMenuItem
-            // 
-            this.keluarToolStripMenuItem.Name = "keluarToolStripMenuItem";
-            this.keluarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.keluarToolStripMenuItem.Text = "Keluar";
-            this.keluarToolStripMenuItem.Click += new System.EventHandler(this.keluarToolStripMenuItem_Click);
-            // 
             // PnlOverlay
             // 
             this.PnlOverlay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -444,12 +444,33 @@
             this.PnlFormDock.Size = new System.Drawing.Size(188, 91);
             this.PnlFormDock.TabIndex = 1;
             // 
-            // tentangToolStripMenuItem
+            // TbxHasil
             // 
-            this.tentangToolStripMenuItem.Name = "tentangToolStripMenuItem";
-            this.tentangToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.tentangToolStripMenuItem.Text = "Tentang";
-            this.tentangToolStripMenuItem.Click += new System.EventHandler(this.tentangToolStripMenuItem_Click);
+            this.TbxHasil.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TbxHasil.BackColor = System.Drawing.SystemColors.Control;
+            this.TbxHasil.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TbxHasil.Location = new System.Drawing.Point(8, 17);
+            this.TbxHasil.Multiline = true;
+            this.TbxHasil.Name = "TbxHasil";
+            this.TbxHasil.Size = new System.Drawing.Size(649, 109);
+            this.TbxHasil.TabIndex = 7;
+            // 
+            // alatToolStripMenuItem
+            // 
+            this.alatToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.buatQrDariHasilToolStripMenuItem});
+            this.alatToolStripMenuItem.Name = "alatToolStripMenuItem";
+            this.alatToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.alatToolStripMenuItem.Text = "Alat";
+            // 
+            // buatQrDariHasilToolStripMenuItem
+            // 
+            this.buatQrDariHasilToolStripMenuItem.Name = "buatQrDariHasilToolStripMenuItem";
+            this.buatQrDariHasilToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.buatQrDariHasilToolStripMenuItem.Text = "Buat Qr dari Hasil";
+            this.buatQrDariHasilToolStripMenuItem.Click += new System.EventHandler(this.buatQrDariHasilToolStripMenuItem_Click);
             // 
             // FrmAwal
             // 
@@ -476,6 +497,7 @@
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -495,7 +517,6 @@
         private System.Windows.Forms.TextBox TbxUri;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label LblResult;
         private System.ComponentModel.BackgroundWorker BgCleaner;
         private System.ComponentModel.BackgroundWorker BwChecker;
         private System.Windows.Forms.Timer TimerChecker;
@@ -529,6 +550,9 @@
         private System.Windows.Forms.Button BtnCloseOverlay;
         private System.Windows.Forms.Panel PnlFormDock;
         private System.Windows.Forms.ToolStripMenuItem tentangToolStripMenuItem;
+        private System.Windows.Forms.TextBox TbxHasil;
+        private System.Windows.Forms.ToolStripMenuItem alatToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem buatQrDariHasilToolStripMenuItem;
     }
 }
 

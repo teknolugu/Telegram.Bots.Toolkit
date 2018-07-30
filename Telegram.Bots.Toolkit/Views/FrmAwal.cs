@@ -50,8 +50,8 @@ namespace Telegram.Bots.Toolkit.Views
 
             if (inCenter)
             {
+                PnlOverlay.Size = new Size(frm.Width, frm.Height);
                 PnlOverlay.Location = new Point(Width / 2 - PnlOverlay.Width / 2 - 5, 25);
-                PnlOverlay.Size = new Size(670, 330);
                 PnlOverlay.Anchor = ((AnchorStyles)(AnchorStyles.Top));
             }
 
@@ -115,8 +115,7 @@ namespace Telegram.Bots.Toolkit.Views
                         tsProgBar.Value = tsProgBar.Maximum - count;
                     });
 
-                    //HControls.InvokeIfRequired(this, LblResult => LblResult.Text = "Sisa pendings : " + count);
-                    LblResult.Invoke((MethodInvoker)delegate { LblResult.Text = "Sisa pending : " + count; });
+                    TbxHasil.Invoke((MethodInvoker)delegate { TbxHasil.Text = "Sisa pending : " + count; });
                 }
 
                 if (!string.IsNullOrEmpty(sWebhook.UriCurrent) &&
@@ -163,9 +162,9 @@ namespace Telegram.Bots.Toolkit.Views
             if (!string.IsNullOrEmpty(sWebhook.Token))
             {
                 var data = sWebhook.GetWebhookInfo();
-                LblResult.Invoke((MethodInvoker)delegate
+                TbxHasil.Invoke((MethodInvoker)delegate
                 {
-                    LblResult.Text = "URI Webhook         : " + data.Url +
+                    TbxHasil.Text = "URI Webhook         : " + data.Url +
                                      "\nPending Update     : " + data.PendingUpdateCount +
                                      "\nMax Connection     : " + data.MaxConnections +
                                      "\nLast Error Date       : " + data.LastErrorDate +
@@ -174,9 +173,9 @@ namespace Telegram.Bots.Toolkit.Views
 
                 if (data.PendingUpdateCount > 5)
                 {
-                    LblResult.Invoke((MethodInvoker)delegate
+                    TbxHasil.Invoke((MethodInvoker)delegate
                     {
-                        LblResult.Text += "\nLebih dari " + data.PendingUpdateCount;
+                        TbxHasil.Text += "\nLebih dari " + data.PendingUpdateCount;
                     });
 
                     if (bersihkanPendingCountOtomatisToolStripMenuItem.Checked)
@@ -368,5 +367,15 @@ namespace Telegram.Bots.Toolkit.Views
         }
 
         #endregion Menus
+
+        private void buatQrDariHasilToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmPenampilQr tampilQr = new FrmPenampilQr();
+            SQrCode qr = new SQrCode();
+            qr.QrTeks = TbxHasil.Text;
+            tampilQr.PicPenampilQr.Image = qr.BuatQr();
+
+            LoadForm(tampilQr, true);
+        }
     }
 }
