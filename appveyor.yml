@@ -19,4 +19,15 @@ deploy:
   folder: /files/appveyor/Telegram.Bots.Toolkit
 - provider: GitHub
   auth_token:
-    secure: AtWJJMr3AOaaRYenaXcxZQ3F2tHm8xwT88aa2e/RHfrx+esAwoU3BfDjUfyKjCg+
+    secure: 9YQfKJraI5dDWvUsh48iWVFI9jBrNT2Fswv7PhHmmuyrXdQTG8YgB1FX4nqu058l
+  draft: false
+  force_update: true
+  on:
+    branch: master
+- provider: GitHub
+  auth_token:
+    secure: 9YQfKJraI5dDWvUsh48iWVFI9jBrNT2Fswv7PhHmmuyrXdQTG8YgB1FX4nqu058l
+  prerelease: true
+  force_update: true
+  on:
+    branch: nightly
