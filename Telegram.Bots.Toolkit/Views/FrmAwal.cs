@@ -197,16 +197,6 @@ namespace Telegram.Bots.Toolkit.Views
                     }
                     //PushNotif("Pending Update Count : " + data.PendingUpdateCount);
                 }
-
-                SPing ping = new SPing();
-                ping.Url = TbxUriDefault.Text.Trim();
-                long waktu = ping.GetWaktu();
-                Color warna = ping.GetWarna();
-                tsLPing.GetCurrentParent().Invoke((MethodInvoker)delegate
-                {
-                    tsLPing.Text = "Ping : " + waktu.ToString() + " ms";
-                    tsLPing.ForeColor = warna;
-                });
             }
             else
             {
@@ -399,6 +389,31 @@ namespace Telegram.Bots.Toolkit.Views
             tampilQr.PicPenampilQr.Image = qr.BuatQr();
 
             LoadForm(tampilQr, true);
+        }
+
+        private void BwPinger_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            SPing ping = new SPing();
+            ping.Url = TbxUriDefault.Text.Trim();
+            long waktu = ping.GetWaktu();
+            Color warna = ping.GetWarna();
+            tsLPing.GetCurrentParent().Invoke((MethodInvoker)delegate
+            {
+                tsLPing.Text = "Ping : " + waktu.ToString() + " ms";
+                tsLPing.ForeColor = warna;
+            });
+        }
+
+        private void TimerPinger_Tick(object sender, EventArgs e)
+        {
+            if (periksaStatusOtomatisToolStripMenuItem.Checked &&
+                !string.IsNullOrEmpty(TbxToken.Text.Trim()))
+            {
+                if (!BwPinger.IsBusy)
+                {
+                    BwPinger.RunWorkerAsync();
+                }
+            }
         }
     }
 }

@@ -43,13 +43,18 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsProgBar = new System.Windows.Forms.ToolStripProgressBar();
             this.tsLStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsLPing = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.TbxHasil = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mulaiUlangToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.keluarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.segarkanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.alatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buatQrDariHasilToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pengaturanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.periksaStatusOtomatisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bersihkanPendingCountOtomatisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,11 +74,8 @@
             this.PnlOverlay = new System.Windows.Forms.Panel();
             this.BtnCloseOverlay = new System.Windows.Forms.Button();
             this.PnlFormDock = new System.Windows.Forms.Panel();
-            this.TbxHasil = new System.Windows.Forms.TextBox();
-            this.alatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.buatQrDariHasilToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tsLPing = new System.Windows.Forms.ToolStripStatusLabel();
+            this.BwPinger = new System.ComponentModel.BackgroundWorker();
+            this.TimerPinger = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -192,6 +194,19 @@
             this.tsLStatus.Size = new System.Drawing.Size(41, 21);
             this.tsLStatus.Text = "Siaga..";
             // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(290, 21);
+            this.toolStripStatusLabel2.Spring = true;
+            // 
+            // tsLPing
+            // 
+            this.tsLPing.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.tsLPing.Name = "tsLPing";
+            this.tsLPing.Size = new System.Drawing.Size(77, 21);
+            this.tsLPing.Text = "Ping : 133 ms";
+            // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -204,6 +219,19 @@
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Hasil";
+            // 
+            // TbxHasil
+            // 
+            this.TbxHasil.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TbxHasil.BackColor = System.Drawing.SystemColors.Control;
+            this.TbxHasil.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TbxHasil.Location = new System.Drawing.Point(8, 17);
+            this.TbxHasil.Multiline = true;
+            this.TbxHasil.Name = "TbxHasil";
+            this.TbxHasil.Size = new System.Drawing.Size(649, 109);
+            this.TbxHasil.TabIndex = 7;
             // 
             // menuStrip1
             // 
@@ -256,6 +284,21 @@
             this.segarkanToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.segarkanToolStripMenuItem.Text = "Segarkan";
             this.segarkanToolStripMenuItem.Click += new System.EventHandler(this.segarkanToolStripMenuItem_Click);
+            // 
+            // alatToolStripMenuItem
+            // 
+            this.alatToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.buatQrDariHasilToolStripMenuItem});
+            this.alatToolStripMenuItem.Name = "alatToolStripMenuItem";
+            this.alatToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.alatToolStripMenuItem.Text = "Alat";
+            // 
+            // buatQrDariHasilToolStripMenuItem
+            // 
+            this.buatQrDariHasilToolStripMenuItem.Name = "buatQrDariHasilToolStripMenuItem";
+            this.buatQrDariHasilToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.buatQrDariHasilToolStripMenuItem.Text = "Buat Qr dari Hasil";
+            this.buatQrDariHasilToolStripMenuItem.Click += new System.EventHandler(this.buatQrDariHasilToolStripMenuItem_Click);
             // 
             // pengaturanToolStripMenuItem
             // 
@@ -311,7 +354,7 @@
             // tentangToolStripMenuItem
             // 
             this.tentangToolStripMenuItem.Name = "tentangToolStripMenuItem";
-            this.tentangToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.tentangToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.tentangToolStripMenuItem.Text = "Tentang";
             this.tentangToolStripMenuItem.Click += new System.EventHandler(this.tentangToolStripMenuItem_Click);
             // 
@@ -448,46 +491,16 @@
             this.PnlFormDock.Size = new System.Drawing.Size(188, 91);
             this.PnlFormDock.TabIndex = 1;
             // 
-            // TbxHasil
+            // BwPinger
             // 
-            this.TbxHasil.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TbxHasil.BackColor = System.Drawing.SystemColors.Control;
-            this.TbxHasil.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TbxHasil.Location = new System.Drawing.Point(8, 17);
-            this.TbxHasil.Multiline = true;
-            this.TbxHasil.Name = "TbxHasil";
-            this.TbxHasil.Size = new System.Drawing.Size(649, 109);
-            this.TbxHasil.TabIndex = 7;
+            this.BwPinger.WorkerReportsProgress = true;
+            this.BwPinger.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BwPinger_DoWork);
             // 
-            // alatToolStripMenuItem
+            // TimerPinger
             // 
-            this.alatToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.buatQrDariHasilToolStripMenuItem});
-            this.alatToolStripMenuItem.Name = "alatToolStripMenuItem";
-            this.alatToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
-            this.alatToolStripMenuItem.Text = "Alat";
-            // 
-            // buatQrDariHasilToolStripMenuItem
-            // 
-            this.buatQrDariHasilToolStripMenuItem.Name = "buatQrDariHasilToolStripMenuItem";
-            this.buatQrDariHasilToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.buatQrDariHasilToolStripMenuItem.Text = "Buat Qr dari Hasil";
-            this.buatQrDariHasilToolStripMenuItem.Click += new System.EventHandler(this.buatQrDariHasilToolStripMenuItem_Click);
-            // 
-            // toolStripStatusLabel2
-            // 
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(259, 21);
-            this.toolStripStatusLabel2.Spring = true;
-            // 
-            // tsLPing
-            // 
-            this.tsLPing.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.tsLPing.Name = "tsLPing";
-            this.tsLPing.Size = new System.Drawing.Size(77, 21);
-            this.tsLPing.Text = "Ping : 133 ms";
+            this.TimerPinger.Enabled = true;
+            this.TimerPinger.Interval = 2000;
+            this.TimerPinger.Tick += new System.EventHandler(this.TimerPinger_Tick);
             // 
             // FrmAwal
             // 
@@ -572,6 +585,8 @@
         private System.Windows.Forms.ToolStripMenuItem buatQrDariHasilToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripStatusLabel tsLPing;
+        private System.ComponentModel.BackgroundWorker BwPinger;
+        private System.Windows.Forms.Timer TimerPinger;
     }
 }
 
