@@ -6,11 +6,11 @@ namespace Telegram.Bots.Toolkit.Helpers
 {
     internal class HPing
     {
-        public static async Task<long> PingGanAsync(string url)
+        protected static async Task<long> PingGanAsync(string url)
         {
             var ping = new Ping();
             var uri = new Uri(url);
-            long time = 0;
+            long time;
             var reply = await ping.SendPingAsync(uri.Host, 3000);
 
             if (reply.Status == IPStatus.Success)

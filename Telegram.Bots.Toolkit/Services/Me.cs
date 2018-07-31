@@ -8,9 +8,9 @@ namespace Telegram.Bots.Toolkit.Services
     {
         public User GetWebhookInfo()
         {
-            var BotClient = new TelegramBotClient(Token);
+            var botClient = new TelegramBotClient(Token);
 
-            var data = BotClient.GetMeAsync();
+            var data = botClient.GetMeAsync();
 
             return data.Result;
         }

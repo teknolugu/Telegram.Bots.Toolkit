@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 using Telegram.Bots.Toolkit.Model;
 using Telegram.Bots.Toolkit.Services;
@@ -47,13 +49,13 @@ namespace Telegram.Bots.Toolkit.Views
             frm.TopLevel = false;
             frm.Visible = true;
             frm.Dock = DockStyle.Fill;
-            PnlOverlay.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left))));
+            PnlOverlay.Anchor = AnchorStyles.Top | AnchorStyles.Left;
 
             if (inCenter)
             {
                 PnlOverlay.Size = new Size(frm.Width, frm.Height);
                 PnlOverlay.Location = new Point(Width / 2 - PnlOverlay.Width / 2 - 5, 25);
-                PnlOverlay.Anchor = ((AnchorStyles)(AnchorStyles.Top));
+                PnlOverlay.Anchor = AnchorStyles.Top;
             }
 
             PnlFormDock.Controls.Clear();
@@ -89,7 +91,7 @@ namespace Telegram.Bots.Toolkit.Views
 
         #region Workers
 
-        private void BgCleaner_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        private void BgCleaner_DoWork(object sender, DoWorkEventArgs e)
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -106,7 +108,7 @@ namespace Telegram.Bots.Toolkit.Views
                     tsProgBar.Maximum = count;
                 });
 
-                for (int x = 0; x <= count; count--)
+                for (var x = 0; x <= count; count--)
                 {
                     sWebhook.HapusWebhook();
                     sWebhook.GetUpdates();
@@ -114,16 +116,17 @@ namespace Telegram.Bots.Toolkit.Views
                     count = sWebhook.GetWebhookInfo().PendingUpdateCount;
                     e.Result = count;
                     tsProgBar.GetCurrentParent().Invoke((MethodInvoker)delegate
-                    {
-                        tsProgBar.Value = tsProgBar.Maximum - count;
-                    });
+                        {
+                            tsProgBar.Value = tsProgBar.Maximum - count;
+                        });
+
                     stopwatch.Stop();
-                    TbxHasil.Invoke((MethodInvoker)delegate
-                    {
-                        TbxHasil.Text = "Sisa pending \t : " + count +
-                                        "\r\nDiperiksa \t : " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") +
-                                    "\r\nWaktu Periksa \t : " + stopwatch.Elapsed; ;
-                    });
+                    var hasil = new StringBuilder();
+                    hasil.AppendLine("Sisa Pending \t : " + count);
+                    hasil.AppendLine("Diperiksa \t : " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"));
+                    hasil.AppendLine("Waktu Periksa \t : " + stopwatch.Elapsed);
+
+                    TbxHasil.Invoke((MethodInvoker)delegate { TbxHasil.Text = hasil.ToString(); });
                 }
 
                 if (!string.IsNullOrEmpty(sWebhook.UriCurrent) &&
@@ -144,7 +147,7 @@ namespace Telegram.Bots.Toolkit.Views
             }
         }
 
-        private void BgCleaner_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        private void BgCleaner_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             tsLStatus.Text = "Siaga..";
             BtnBersihkan.Text = "Mulai Bersihkan";
@@ -161,7 +164,7 @@ namespace Telegram.Bots.Toolkit.Views
             }
         }
 
-        private void BwChecker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        private void BwChecker_DoWork(object sender, DoWorkEventArgs e)
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -173,16 +176,15 @@ namespace Telegram.Bots.Toolkit.Views
             {
                 var data = sWebhook.GetWebhookInfo();
                 stopwatch.Stop();
-                TbxHasil.Invoke((MethodInvoker)delegate
-                {
-                    TbxHasil.Text = "URI Webhook \t : " + data.Url +
-                                    "\r\nPending Update \t : " + data.PendingUpdateCount +
-                                    "\r\nMax Connection \t : " + data.MaxConnections +
-                                    "\r\nLast Error Date \t : " + data.LastErrorDate +
-                                    "\r\nError Message \t : " + data.LastErrorMessage +
-                                    "\r\nDiperiksa \t : " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") +
-                                    "\r\nWaktu Periksa \t : " + stopwatch.Elapsed;
-                });
+                var hasil = new StringBuilder();
+                hasil.AppendLine("URI Webhook \t : " + data.Url);
+                hasil.AppendLine("Pending Update \t : " + data.PendingUpdateCount);
+                hasil.AppendLine("Max Connection \t : " + data.MaxConnections);
+                hasil.AppendLine("Last Error Date \t : " + data.LastErrorDate);
+                hasil.AppendLine("Diperiksa \t : " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"));
+                hasil.AppendLine("Waktu Periksa \t : " + stopwatch.Elapsed);
+
+                TbxHasil.Invoke((MethodInvoker)delegate { TbxHasil.Text = hasil.ToString(); });
 
                 if (data.PendingUpdateCount > 5)
                 {
@@ -391,7 +393,7 @@ namespace Telegram.Bots.Toolkit.Views
             LoadForm(tampilQr, true);
         }
 
-        private void BwPinger_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        private void BwPinger_DoWork(object sender, DoWorkEventArgs e)
         {
             SPing ping = new SPing();
             ping.Url = TbxUriDefault.Text.Trim();
@@ -399,7 +401,7 @@ namespace Telegram.Bots.Toolkit.Views
             Color warna = ping.GetWarna();
             tsLPing.GetCurrentParent().Invoke((MethodInvoker)delegate
             {
-                tsLPing.Text = "Ping : " + waktu.ToString() + " ms";
+                tsLPing.Text = "Ping : " + waktu + " ms";
                 tsLPing.ForeColor = warna;
             });
         }

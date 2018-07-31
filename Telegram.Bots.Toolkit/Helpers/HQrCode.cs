@@ -3,16 +3,16 @@ using System.Drawing;
 
 namespace Telegram.Bots.Toolkit.Helpers
 {
-    internal class HQrCode
+    internal static class HQrCode
     {
-        public static Bitmap CreateQRCode(string value)
+        public static Bitmap CreateQrCode(string value)
         {
-            QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode(value, QRCodeGenerator.ECCLevel.Q);
-            QRCode qrCode = new QRCode(qrCodeData);
-            Bitmap QRcodeResult = qrCode.GetGraphic(20);
+            var qrGenerator = new QRCodeGenerator();
+            var qrCodeData = qrGenerator.CreateQrCode(value, QRCodeGenerator.ECCLevel.Q);
+            var qrCode = new QRCode(qrCodeData);
+            var qRcodeResult = qrCode.GetGraphic(20);
 
-            return QRcodeResult;
+            return qRcodeResult;
         }
     }
 }

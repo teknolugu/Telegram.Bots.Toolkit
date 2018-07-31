@@ -19,28 +19,28 @@ namespace Telegram.Bots.Toolkit.Services
         {
             var botClient = new TelegramBotClient(Token);
 
-            var data = botClient.DeleteWebhookAsync();
+            var unused = botClient.DeleteWebhookAsync();
         }
 
         public void SetWebhook()
         {
             var botClient = new TelegramBotClient(Token);
 
-            var data = botClient.SetWebhookAsync(UriClean);
+            var unused = botClient.SetWebhookAsync(UriClean);
         }
 
         public void SetWebhookDefault()
         {
             var botClient = new TelegramBotClient(Token);
 
-            var data = botClient.SetWebhookAsync(UriCurrent);
+            var unused = botClient.SetWebhookAsync(UriCurrent);
         }
 
         public void GetUpdates()
         {
             var botClient = new TelegramBotClient(Token);
 
-            var data = botClient.GetUpdatesAsync();
+            var unused = botClient.GetUpdatesAsync();
         }
     }
 }

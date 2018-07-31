@@ -1,6 +1,6 @@
 ﻿namespace Telegram.Bots.Toolkit.UserControls
 {
-    partial class COverlayForm
+    abstract partial class COverlayForm
     {
         /// <summary> 
         /// Required designer variable.

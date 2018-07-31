@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Telegram.Bots.Toolkit.Model;
+﻿using System.Drawing;
 using Telegram.Bots.Toolkit.Helpers;
+using Telegram.Bots.Toolkit.Model;
 
 namespace Telegram.Bots.Toolkit.Services
 {
@@ -13,7 +8,7 @@ namespace Telegram.Bots.Toolkit.Services
     {
         public Bitmap BuatQr()
         {
-            return HQrCode.CreateQRCode(QrTeks);
+            return HQrCode.CreateQrCode(QrTeks);
         }
     }
 }
