@@ -35,6 +35,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -44,18 +46,18 @@
             this.LblProduk.Font = new System.Drawing.Font("Segoe UI", 20F);
             this.LblProduk.Location = new System.Drawing.Point(155, 29);
             this.LblProduk.Name = "LblProduk";
-            this.LblProduk.Size = new System.Drawing.Size(90, 37);
+            this.LblProduk.Size = new System.Drawing.Size(322, 37);
             this.LblProduk.TabIndex = 1;
-            this.LblProduk.Text = "label1";
+            this.LblProduk.Text = "Application.ProductName";
             // 
             // LblVersi
             // 
             this.LblVersi.AutoSize = true;
-            this.LblVersi.Location = new System.Drawing.Point(159, 66);
+            this.LblVersi.Location = new System.Drawing.Point(159, 68);
             this.LblVersi.Name = "LblVersi";
-            this.LblVersi.Size = new System.Drawing.Size(43, 17);
+            this.LblVersi.Size = new System.Drawing.Size(164, 17);
             this.LblVersi.TabIndex = 2;
-            this.LblVersi.Text = "label2";
+            this.LblVersi.Text = "Application.ProductVersion";
             // 
             // label1
             // 
@@ -63,22 +65,22 @@
             this.label1.Font = new System.Drawing.Font("Segoe UI", 15F);
             this.label1.Location = new System.Drawing.Point(157, 127);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(107, 28);
+            this.label1.Size = new System.Drawing.Size(352, 28);
             this.label1.TabIndex = 3;
-            this.label1.Text = "3rd Library";
+            this.label1.Text = "Tools ini menggunakan 3rd Library dari";
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(159, 155);
+            this.label2.Location = new System.Drawing.Point(159, 160);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(137, 120);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Fody\r\nCostura.Fody\r\nini-parser\r\nNewtonsoft.Json\r\nSystem.Net.Request\r\nTelegram.Bot" +
-    "";
+            this.label2.Text = "Fody\r\nCostura.Fody\r\nini-parser\r\nNewtonsoft.Json\r\nQRCoder\r\nSystem.Net.Request\r\nTel" +
+    "egram.Bot";
             // 
             // linkLabel1
             // 
-            this.linkLabel1.Location = new System.Drawing.Point(302, 155);
+            this.linkLabel1.Location = new System.Drawing.Point(302, 160);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(290, 120);
             this.linkLabel1.TabIndex = 5;
@@ -96,11 +98,32 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(159, 94);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(48, 17);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "GitHub";
+            // 
+            // linkLabel2
+            // 
+            this.linkLabel2.AutoSize = true;
+            this.linkLabel2.Location = new System.Drawing.Point(302, 94);
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.Size = new System.Drawing.Size(302, 17);
+            this.linkLabel2.TabIndex = 7;
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.Text = "https://github.com/WinTenID/Telegram.Bots.Toolkit";
+            // 
             // FrmTentang
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(617, 295);
+            this.ClientSize = new System.Drawing.Size(649, 328);
+            this.Controls.Add(this.linkLabel2);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -125,5 +148,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.LinkLabel linkLabel2;
     }
 }

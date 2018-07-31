@@ -232,6 +232,8 @@
             this.TbxHasil.Name = "TbxHasil";
             this.TbxHasil.Size = new System.Drawing.Size(649, 109);
             this.TbxHasil.TabIndex = 7;
+            this.TbxHasil.TabStop = false;
+            this.TbxHasil.Text = "Sedang memulai..";
             // 
             // menuStrip1
             // 
