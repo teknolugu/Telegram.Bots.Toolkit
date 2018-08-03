@@ -389,7 +389,7 @@ namespace Telegram.Bots.Toolkit.Views
             SQrCode qr = new SQrCode();
             qr.QrTeks = TbxHasil.Text;
             tampilQr.PicPenampilQr.Image = qr.BuatQr();
-
+            tampilQr.PerbaruiProperti();
             LoadForm(tampilQr, true);
         }
 

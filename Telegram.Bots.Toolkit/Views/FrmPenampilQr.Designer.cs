@@ -30,7 +30,9 @@
         {
             this.PicPenampilQr = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.TbxQrProperti = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.PicPenampilQr)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // PicPenampilQr
@@ -45,6 +47,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.TbxQrProperti);
             this.groupBox1.Location = new System.Drawing.Point(310, 31);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
@@ -53,6 +56,16 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
+            // 
+            // TbxQrProperti
+            // 
+            this.TbxQrProperti.BackColor = System.Drawing.SystemColors.Control;
+            this.TbxQrProperti.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TbxQrProperti.Location = new System.Drawing.Point(11, 25);
+            this.TbxQrProperti.Multiline = true;
+            this.TbxQrProperti.Name = "TbxQrProperti";
+            this.TbxQrProperti.Size = new System.Drawing.Size(270, 215);
+            this.TbxQrProperti.TabIndex = 0;
             // 
             // FrmPenampilQr
             // 
@@ -66,6 +79,8 @@
             this.Name = "FrmPenampilQr";
             this.Text = "FrmPenampilQr";
             ((System.ComponentModel.ISupportInitialize)(this.PicPenampilQr)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -74,5 +89,6 @@
 
         public System.Windows.Forms.PictureBox PicPenampilQr;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox TbxQrProperti;
     }
 }
