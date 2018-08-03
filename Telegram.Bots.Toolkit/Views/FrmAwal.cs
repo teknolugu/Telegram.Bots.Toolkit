@@ -54,7 +54,7 @@ namespace Telegram.Bots.Toolkit.Views
             if (inCenter)
             {
                 PnlOverlay.Size = new Size(frm.Width, frm.Height);
-                PnlOverlay.Location = new Point(Width / 2 - PnlOverlay.Width / 2 - 5, 25);
+                PnlOverlay.Location = new Point(Width / 2 - PnlOverlay.Width / 2-10, 25);
                 PnlOverlay.Anchor = AnchorStyles.Top;
             }
 
