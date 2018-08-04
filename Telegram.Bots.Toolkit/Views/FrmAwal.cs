@@ -54,7 +54,7 @@ namespace Telegram.Bots.Toolkit.Views
             if (inCenter)
             {
                 PnlOverlay.Size = new Size(frm.Width, frm.Height);
-                PnlOverlay.Location = new Point(Width / 2 - PnlOverlay.Width / 2-10, 25);
+                PnlOverlay.Location = new Point(Width / 2 - PnlOverlay.Width / 2 - 10, 25);
                 PnlOverlay.Anchor = AnchorStyles.Top;
             }
 
@@ -67,6 +67,8 @@ namespace Telegram.Bots.Toolkit.Views
         {
             int h = Convert.ToInt32(Pengaturan.Baca("WinHeight"));
             int w = Convert.ToInt32(Pengaturan.Baca("WinWidth"));
+            int x = Convert.ToInt16(Pengaturan.Baca("WinLocX") ?? Screen.PrimaryScreen.WorkingArea.Width / 2 - Width / 2);
+            int y = Convert.ToInt16(Pengaturan.Baca("WinLocY") ?? Screen.PrimaryScreen.WorkingArea.Height / 2 - Height / 2);
 
             Text = Application.ProductName + " " + Application.ProductVersion;
             periksaStatusOtomatisToolStripMenuItem.Checked = Convert.ToBoolean(Pengaturan.Baca("AutoCekWebhook"));
@@ -74,7 +76,7 @@ namespace Telegram.Bots.Toolkit.Views
             SetURIHookSetBersihkanToolStripMenuItem.Checked = Convert.ToBoolean(Pengaturan.Baca("SetURIHookSetBersih"));
             tutupKeTrayToolStripMenuItem.Checked = Convert.ToBoolean(Pengaturan.Baca("TutupKeTray"));
             CmbBots.SelectedIndex = Convert.ToInt16(Pengaturan.Baca("BotTerpilih"));
-            Location = new Point(Convert.ToInt16(Pengaturan.Baca("WinLocX")), Convert.ToInt16(Pengaturan.Baca("WinLocY")));
+            Location = new Point(x, y);
             Size = new Size(w, h);
             PnlOverlay.Location = new Point(7, 25);
             PnlOverlay.Size = new Size(670, 330);
